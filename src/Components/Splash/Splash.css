@@ -64,19 +64,35 @@
     grid-template-columns: 30% 20% 20% 30%;
     grid-template-rows: auto;
 }
-.categoryButtonSelected{
-    border-top:0;
-    border-bottom: black;
-    border-left:0;
-    border-right:0;
+#selected{
+    border-bottom: 1px solid #565656;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
+    color:#565656;
 }
-.categoryButton{
-    border-top:0;
-    border-bottom: #DDDEDD;
-    border-left:0;
-    border-right:0;
+#selected:hover{
+    color:rgb(150, 151, 150);
+    
+}
+.category-button{
+    border:0;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
+    color:rgb(182, 185, 182);
+    padding:10px 0px 10px 0px;
+    margin-right:25px;
+}
+.category-button:hover{
+    color:rgb(150, 151, 150)
+}
+.main-categories{
+    border-bottom:1px solid rgb(182, 185, 182);
+    
+}
+.projects-preview{
+    margin:60px;
+}
+h2{
+    font-weight:500;
+    color:#282828;
 }

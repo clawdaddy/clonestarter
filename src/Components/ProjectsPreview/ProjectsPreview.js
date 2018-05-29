@@ -19,7 +19,7 @@ class ProjectsPreview extends Component {
     render(){
         const {categories, currentCategory} = this.state;
         return(
-            <div>
+            <div className='projects-preview'>
                 <Categories
                     categories = {categories}
                     callbackFn = {this.selectCategory}

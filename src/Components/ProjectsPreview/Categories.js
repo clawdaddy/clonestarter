@@ -4,14 +4,14 @@ import './../Splash/Splash.css';
 function Categories(props){
     let {categories, callbackFn, currentCategory} = props;
     return(
-        <div>
+        <div className='main-categories'>
             {
                 categories.map( (category, i, arr) => {
                     let buttonStyle = category === currentCategory
-                        ?'categoryButtonSelected'
-                        :'categoryButton'
+                        ?'selected'
+                        :''
                     return(
-                        <button className={buttonStyle}key={category} onClick={() =>callbackFn(category)}>{category}</button>
+                        <button id={buttonStyle} className='category-button' key={category} onClick={() =>callbackFn(category)}>{category}</button>
                     )
                 })
             }
