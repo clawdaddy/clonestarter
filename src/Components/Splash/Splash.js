@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Stats from './../Stats/Stats';
 import ProjectsPreview from './../ProjectsPreview/ProjectsPreview';
 import ProjectsWeLove from './../ProjectsWeLove/ProjectsWeLove';
-import FeaturedProject from './../FeaturedProject/FeaturedProject';
+import BigQuote from './../BigQuote/BigQuote';
 import BannerLinks from '../BannerLinks/BannerLinks';
 import Articles from '../Articles/Articles';
 import Footer from './../Footer/Footer';
@@ -20,11 +20,11 @@ class Splash extends Component {
     render(){
 
         return(
-            <div>splash
+            <div>
                 <Stats/>
                 <ProjectsPreview/>
                 <ProjectsWeLove/>
-                <FeaturedProject/>
+                <BigQuote/>
                 <BannerLinks/>
                 <Articles/>
                 <Subscribe/>

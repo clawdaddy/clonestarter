@@ -1,9 +1,12 @@
 import React from 'react';
 
 function FeaturedProject(props){
+
     return(
-        <div>FeaturedProject</div>
+        <div>
+            <p>FEATURED PROJECT</p>
+            
+        </div>
     )
 }
-
 export default FeaturedProject;
