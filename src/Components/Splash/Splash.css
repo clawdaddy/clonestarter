@@ -43,14 +43,14 @@
     border-top:1px solid black;
     border-bottom: 1px solid black;
     padding-left:40px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     padding-right:10px;
 
 }
 .stats-content > p {
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     margin: 3px;
 }
 .stats-content > p:first-child{
@@ -81,18 +81,29 @@
     color:rgb(182, 185, 182);
     padding:10px 0px 10px 0px;
     margin-right:25px;
+    
 }
 .category-button:hover{
     color:rgb(150, 151, 150)
 }
+.category-button:focus{
+    outline: none;
+}
 .main-categories{
     border-bottom:1px solid rgb(182, 185, 182);
-    
+    overflow-x:auto;
 }
 .projects-preview{
     margin:60px;
+    overflow-x:auto;
+    white-space: nowrap;
 }
 h2{
     font-weight:500;
     color:#282828;
 }
+/* @media(max-width:900px){
+    .main-categories{
+        overflow-x:scroll;
+    }
+} */
