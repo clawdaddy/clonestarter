@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Categories from './Categories';
 import FeaturedProject from './FeaturedProject';
 import SideCategories from './SideCategories';
+import FaLongArrowRight from 'react-icons/lib/fa/long-arrow-right'
 
 class ProjectsPreview extends Component {
     constructor(){
@@ -84,7 +85,12 @@ class ProjectsPreview extends Component {
                     currentCategory = {currentCategory}
                     categoryClass = 'category-button'
                 />
-                <h2 className='current-category'>{currentCategory}</h2>
+                <div className='current-category-set'>
+                    <h2 className='current-category'>{currentCategory} </h2>
+                    <div className='view-all-set'>
+                        <button className='view-all'>VIEW ALL <FaLongArrowRight/> </button>
+                    </div>
+                </div>
                 <FeaturedProject
                     featured = {categoryData.filter( category => category.name === currentCategory)[0].featured}
                 />

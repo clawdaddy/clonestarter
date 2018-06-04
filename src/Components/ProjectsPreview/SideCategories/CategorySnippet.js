@@ -22,7 +22,7 @@ function CategorySnippet(props){
                 </div>
             </div>
             <div >
-                <FaHeartO style={heartStyle}/>
+                <FaHeartO className='heart-icon'style={heartStyle}/>
             </div>
         </div>
     )
