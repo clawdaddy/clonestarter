@@ -24,7 +24,7 @@ class Nav extends Component {
                         Start <span className='nav-hide'>a project</span>
                     </p>
                 </div>
-                <h1 className='logo'>KICKSTARTER</h1>
+                <h1 className='logo'>CLONESTARTER</h1>
                 <div className='filler-mid'></div>
                 <div className='right-nav'>
                     <p className='nav-hide'>

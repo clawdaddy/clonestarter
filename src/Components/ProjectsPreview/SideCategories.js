@@ -26,6 +26,7 @@ class SideCategories extends Component {
                         img = {project.img}
                         title = {project.title}
                         funded = {project.funded}
+                        key={`key_${project.img}`}
                     />
                 )
             })

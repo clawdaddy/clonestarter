@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Categories from './Categories';
 import FeaturedProject from './FeaturedProject';
 import SideCategories from './SideCategories';
-import FaLongArrowRight from 'react-icons/lib/fa/long-arrow-right'
+import FaLongArrowRight from 'react-icons/lib/fa/long-arrow-right';
 
 class ProjectsPreview extends Component {
     constructor(){
