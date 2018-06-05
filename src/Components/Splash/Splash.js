@@ -46,6 +46,12 @@ class Splash extends Component {
                     }
                 ],
                 name:'NEW & NOTEWORTHY'
+            },
+            bigQuote:{
+                quote:'"Projects have a life of their own. You make something, but it\'ll tell you what it is."',
+                title:'PHOTOGRAPHER & DIRECTOR',
+                name:'OLIVIA BEE',
+                link:'https://thecreativeindependent.com/people/olivia-bee-on-finding-the-right-balance/?ref=ksr_home'
             }
         }
     }
@@ -53,6 +59,7 @@ class Splash extends Component {
 
     render(){
         const {projects} = this.state.projectsWeLove;
+        const {bigQuote} = this.state;
         return(
             <div>
                 <Stats/>
@@ -60,7 +67,9 @@ class Splash extends Component {
                 <ProjectsWeLove 
                     projects = {projects}
                 />
-                <BigQuote/>
+                <BigQuote
+                    bigQuote = {bigQuote}
+                />
                 <BannerLinks/>
                 <Articles/>
                 <Subscribe/>

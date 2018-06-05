@@ -1,9 +1,13 @@
 import React from 'react';
 
-function BigQuite(props){
+function BigQuote(props){
+    const {quote, name, title, link} = props.bigQuote;
     return(
-        <div>Big Quote</div>
+        <div>
+            <a href={link}><p>{quote}</p></a>
+            <p>{title} {name} IN <a href='https://thecreativeindependent.com/?ref=ksr_home'>THE CREATIVE INDEPENDENT</a>, A KICKSTARTER-PUBLISHED RESOURCE FOR CREATIVE PEOPLE</p>
+        </div>
     )
 }
 
-export default BigQuite;
+export default BigQuote;
