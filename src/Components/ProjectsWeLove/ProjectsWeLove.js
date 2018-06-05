@@ -12,14 +12,16 @@ function ProjectsWeLove(props){
                     featured={project}
                 />
                 <p>{project.description}</p>
-                <p>{project.funded}</p>
+                <p className='snippet-funded'>{project.funded}</p>
             </div>
         )
     })
     return(
         <div className='projects-we-love'>
-            <h4 >Projects We Love</h4>
-            <a>VIEW ALL <FaLongArrowRight/></a>
+            <div className='love-top'>
+                <h4 >Projects We Love</h4>
+                <a>VIEW ALL <FaLongArrowRight/></a>
+            </div>
             {projectCards}
         </div>
     )
