@@ -2,7 +2,7 @@ import React from 'react';
 import './../Splash/Splash.css';
 
 function Categories(props){
-    let {categories, callbackFn, currentCategory} = props;
+    let {categories, callbackFn, currentCategory, categoryClass} = props;
     return(
         <div className='main-categories'>
             {
@@ -11,7 +11,7 @@ function Categories(props){
                         ?'selected'
                         :''
                     return(
-                        <button id={buttonStyle} className='category-button' key={category} onClick={() =>callbackFn(category)}>{category}</button>
+                        <button id={buttonStyle} className={categoryClass} key={category} onClick={() =>callbackFn(category)}>{category}</button>
                     )
                 })
             }
