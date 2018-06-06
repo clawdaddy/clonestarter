@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Lora|Merriweather');
 @font-face {
     font-family:rnsBarutaBlack;
     src: url(./../../Fonts/rns-baruta-black/RNS-B.ttf);
@@ -302,7 +303,47 @@ p{
     grid-column: 5/6;
     grid-row:2/3;
 }
-
+.big-quote{
+    border-bottom:1px solid #EB3324;
+    display: grid;
+    grid-template-columns: 125px auto 1fr 125px;
+    grid-template-rows: 50px auto auto auto 50px
+}
+.big-quote-pic{
+    grid-column:2/3;
+    grid-row:2/3;
+    height:75px;
+    width:75px;
+    margin-right:50px;
+    margin-top:25px;
+}
+.big-quote-quote{
+    font-family: 'Lora', serif;
+    text-decoration: none;
+    font-size:44px;
+    font-weight: 100;
+    display: flex;
+    flex-direction: row;
+    color:black;
+    grid-column: 3/4;
+    grid-row:2/3;
+}
+.big-quote-read{
+    grid-column:3/4;
+    grid-row:4/5;
+    font-size:13px;
+    text-decoration: none;
+}
+.big-quote-signature{
+    grid-column:3/4;
+    grid-row:3/4;
+    font-size:13px;
+    text-decoration: none;
+    color:#6C6F6F;
+}
+.big-quote-signature > a{
+    text-decoration: none;
+}
 @media(max-width:1025px){
     .snippet-image-container{
         max-width:30%;
