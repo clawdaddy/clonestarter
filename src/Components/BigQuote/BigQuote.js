@@ -11,8 +11,8 @@ function BigQuote(props){
             <a className='big-quote-quote' href={link}>
                 <h1 className='big-quote-quote'>{quote}</h1>
             </a>
-            <p className = 'big-quote-signature'>{title} {name} IN <a href='https://thecreativeindependent.com/?ref=ksr_home'>THE CREATIVE INDEPENDENT</a>, A KICKSTARTER-PUBLISHED RESOURCE FOR CREATIVE PEOPLE</p>
-            <a href={link} className='big-quote-read'><p>READ MORE</p> <FaLongArrowRight/></a>
+            <p className = 'big-quote-signature'>{title} {name} IN <a className='big-quote-read'href='https://thecreativeindependent.com/?ref=ksr_home'>THE CREATIVE INDEPENDENT</a>, A KICKSTARTER-PUBLISHED RESOURCE FOR CREATIVE PEOPLE</p>
+            <a href={link} className='big-quote-read'><p>READ MORE <FaLongArrowRight/></p> </a>
         </div>
     )
 }
