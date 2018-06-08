@@ -12,7 +12,7 @@ function FeaturedProject(props){
     }
     return(
         <div className='featured-image-container'>
-            <p>FEATURED PROJECT</p>
+            <p className='featured-project-head'>FEATURED PROJECT</p>
             <div>
                 <ImageBox
                     featured = {featured}
