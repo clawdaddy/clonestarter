@@ -409,6 +409,7 @@ p{
     position: relative;
     color:#3b3b3b;
     text-decoration: none;
+    font-size:14px;
 }
 .small-card{
     display: flex;
@@ -550,6 +551,15 @@ p{
     .banners{
         grid-template-columns: 1fr;
         grid-template-rows: 222px 222px;
+    }
+    .article-grid-container{
+        display: flex;
+        flex-direction: column;
+        padding:25px;
+    }
+    .card{
+        margin-top:10px;
+        margin-bottom:10px;
     }
 }
 
