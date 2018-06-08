@@ -358,6 +358,74 @@ p{
 .big-quote-signature > a{
     text-decoration: none;
 }
+.banners{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 222px;
+    padding:60px;
+    gap:25px;
+    border-bottom:1px solid #EB3324;
+}
+.go-green{
+    background-image: url(https://d3mlfyygrfdi2i.cloudfront.net/R1-img-overlay.png);
+    background-repeat: no-repeat;
+    grid-column: 1/2;
+    background-color:green;
+    display: flex;
+    flex-direction: column;
+    background-size:cover;
+    justify-content: center;
+}
+.green-header{
+    background-color:white;
+    margin-bottom: 0;
+    flex-shrink: 1;
+}
+.green-sentence{
+    background-color:white;
+    margin-top:0;
+    flex-shrink: 1;
+}
+.drip{
+    background-color: #434FE7;
+}
+.drop-svg{
+    height:100%;
+    width:100%;
+}
+
+.article-grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    padding: 60px;
+    grid-row-gap: 40px;
+    grid-column-gap: 40px;
+}
+.card{
+    width:100%;
+    border: 1px solid #DDDEDD;
+    position: relative;
+}
+.small-card{
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 20px;
+}
+.small-card-image{
+    height:72px;
+    width: 72px;
+}
+.card:hover{
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgb(66, 66, 66);
+    transition:all 0.3s ease-in-out;
+    bottom: 1px;
+}
+.big-card-image{
+    width:100%;
+}
+
 @media(max-width:1025px){
     .snippet-image-container{
         max-width:30%;
@@ -472,6 +540,10 @@ p{
         margin:0;
         justify-content: center;
         display: flex;
+    }
+    .banners{
+        grid-template-columns: 1fr;
+        grid-template-rows: 222px 222px;
     }
 }
 
