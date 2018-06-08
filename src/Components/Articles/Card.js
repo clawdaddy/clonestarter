@@ -14,20 +14,20 @@ class BigCard extends Component{
             }),
             image:'http://via.placeholder.com/800x800',
             sourceName:'google',
-            sourceUrl:'www.google.com'
+            sourceUrl:'https://google.com'
         }
     }
     render(){
         const { description, image, sourceName, sourceUrl} = this.state;
         const { cardType } = this.props;
         return(
-            <div className={`card ${cardType}`}>
+            <a className={`card ${cardType}`} href={sourceUrl}>
                 <img className={`card-image ${cardType}-image`}src={image}/>
                 <div>
                     <p>{description}</p>
                     <p>READ ON {sourceName.toUpperCase()} <FaLongArrowRight/></p>
                 </div>
-            </div>
+            </a>
         )
     }
 }

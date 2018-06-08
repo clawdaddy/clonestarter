@@ -6,6 +6,7 @@
 }
 *{
     font-family: 'Roboto', sans-serif;
+   
 }
 .nav {
     display: grid;
@@ -403,14 +404,17 @@ p{
     grid-column-gap: 40px;
 }
 .card{
-    width:100%;
+    
     border: 1px solid #DDDEDD;
     position: relative;
+    color:#3b3b3b;
+    text-decoration: none;
 }
 .small-card{
     display: flex;
     flex-direction: column-reverse;
     padding: 20px;
+    justify-content: space-between;
 }
 .small-card-image{
     height:72px;
@@ -418,9 +422,11 @@ p{
 }
 .card:hover{
     cursor: pointer;
-    box-shadow: 1px 1px 2px rgb(66, 66, 66);
-    transition:all 0.3s ease-in-out;
+    box-shadow: 0.25px 0.25px 3px rgb(66, 66, 66);
+    transition:all 0.2s ease-in-out;
     bottom: 1px;
+    color:rgb(113, 114, 113);
+    text-decoration: underline;
 }
 .big-card-image{
     width:100%;
