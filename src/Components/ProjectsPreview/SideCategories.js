@@ -8,9 +8,20 @@ class SideCategories extends Component {
         this.state={
             currentCategory:this.props.categories[0].name,
             categoryNames:this.props.categories.map( category => category.name),
-            categories: this.props.categories
+            categories: this.props.categories,
+            categoryName: this.props.categoryName
         }
         this.selectCategory = this.selectCategory.bind(this);
+    }
+    componentDidUpdate(prevProps, prevState, snapshot){
+        if (prevProps.categoryName !== this.props.categoryName){
+            this.setState({
+                currentCategory:this.props.categories[0].name,
+                categoryNames:this.props.categories.map( category => category.name),
+                categories: this.props.categories,
+                categoryName: this.props.categoryName
+            })
+        }
     }
     selectCategory (category) {
         this.setState({
@@ -18,7 +29,7 @@ class SideCategories extends Component {
         })
     }
     render(){
-        const {categoryNames, currentCategory, categories} = this.state;
+        const {categoryNames, currentCategory, categories, categoryName} = this.state;
         const snippets = categories.filter( category =>  category.name ===currentCategory)[0]
             .projects.map( project => {
                 return(
@@ -26,7 +37,7 @@ class SideCategories extends Component {
                         img = {project.img}
                         title = {project.title}
                         funded = {project.funded}
-                        key={`key_${project.img}`}
+                        key={`key_${categoryName}_${project.title}`}
                     />
                 )
             })
