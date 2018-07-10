@@ -17,23 +17,23 @@ class Nav extends Component {
             <div className='nav'>
                 <div className='filler-left'></div>
                 <div className='left-nav'>
-                    <p>
+                    <a>
                         Explore
-                    </p>
-                    <p>
+                    </a>
+                    <a>
                         Start <span className='nav-hide'>a project</span>
-                    </p>
+                    </a>
                 </div>
                 <h1 className='logo'>CLONESTARTER</h1>
                 <div className='filler-mid'></div>
                 <div className='right-nav'>
-                    <p className='nav-hide'>
-                        Search  
-                    </p>
-                    <FaSearch/>
-                    <p>
+                    <a className='nav-hide'>
+                        Search   <FaSearch/>
+                    </a>
+                   <a className='nav-hide-2'> <FaSearch/></a>
+                    <a>
                         Sign in
-                    </p>
+                    </a>
                 </div>
                 <div className='filler-right'></div>
             </div>
