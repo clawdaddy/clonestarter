@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DropdownOption from './DropdownSelector/DropdownOption';
 import OnClickOutside from 'react-onclickoutside';
+import PropTypes from 'prop-types';
 
 const styles = {
     placeholderStyle:{
@@ -101,6 +102,12 @@ class DropdownSelector extends Component {
             </div>
         );
     }
+}
+DropdownSelector.propTypes = {
+    options: PropTypes.array.isRequired,
+    selected: PropTypes.string,
+    placeholder: PropTypes.string,
+    callbackFn: PropTypes.func.isRequired
 }
 
 export default OnClickOutside(DropdownSelector);
