@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import { selectCategory } from './../../dux/projectCreationReducer';
 import DropdownSelector from './ProjectAttribute/DropdownSelector';
 import PageOne from './ProjectSetup/SetupTemplate/PageOne';
@@ -19,46 +19,53 @@ class ProjectSetup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentPage:0, 
+            currentPage:+props.match.params.page,
             pages:[
                 {
                     number:1,
                     header:"First, let's get you set up.",
                     subheader:"Pick a project category to connect with a specific community. You can always update this later.",
                     backText:'Welcome.',
+                    back:false,
                     nextText:'Next: Project idea',
                     nextUrl:props.match.url + '/2',
-                    back:false
+                    
                 },
                 {
                     number:2,
                     header:"Describe what you’ll be creating.",
                     subheader:"And don’t worry, you can edit this later, too.",
                     backText:'Category',
+                    backUrl:props.match.url + '/1',
+                    back:true,
                     nextText:"Next: Location",
                     nextUrl:props.match.url+'/3',
-                    back:true
+                    
                 },
                 {
                     number:3,
                     header:"Finally, let’s confirm your eligibility.",
                     subheader:"Tell us where you’re based and confirm a few other details before we proceed.",
                     backText:'Project idea',
+                    backUrl:props.match.url + '/2',
+                    back:true,
                     nextText:'Continue',
                     nextUrl:'/projectCreate/overview',
-                    back:true
 
                 }
             ]
         }
     }
     componentDidUpdate(prevProps, prevState, snapshot){
-        if(prevProps.category !== this.props.category){
-            this.setState({})
+        if(prevProps.match.params.page !== this.props.match.params.page){
+            this.setState({currentPage:this.props.match.params.page})
         }
     }
+    handleNextPage = (num) => {
+        this.setState( prevState => {return {currentPage:prevState.currentPage+num}})
+    }
     render() {
-        let current = this.state.pages[this.state.currentPage]
+        let current = this.state.pages[this.state.currentPage -1]
         return (
             <div>
                 
@@ -84,18 +91,25 @@ class ProjectSetup extends Component {
                 <h2>{current.header}</h2>
                 <p>{current.subheader}</p>
                 <Switch>
-                    <Route path={this.props.match.url + '/1'} component={PageOne}/>
-                    <Route path={this.props.match.url + '/2'} component={PageTwo}/>
-                    <Route path={this.props.match.url + '/3'} component={PageThree}/>
+                    <Route path={'/projectCreate/setup/1'} component={PageOne}/>
+                    <Route path={'/projectCreate/setup/2'} component={PageTwo}/>
+                    <Route path={'/projectCreate/setup/3'} component={PageThree}/>
+                    <Redirect from={'/projectCreate/setup/4'} to='/projectCreate/overview'/>
                 </Switch>
                 {
                     current.back
-                    ? <Link to={this.props}></Link>
+                    ?   <Link 
+                            to={'/projectCreate/setup/'+( +this.state.currentPage-1)} 
+                            // onClick={() => this.handleNextPage(-1)}
+                        >
+                        {current.backText}
+                    </Link>
                     : <p>{current.backText}</p>
                 }
-                <Link to={current.nextUrl}>
-                    <button onClick={() => this.setState( (prevState)=>{
-                        return {currentPage:prevState.currentPage+1} })}>
+                <Link to={'/projectCreate/setup/'+ (+this.state.currentPage+1)}>
+                    <button 
+                        // onClick={() => this.handleNextPage(1)}
+                    >
                         {current.nextText}
                     </button>
                 </Link>

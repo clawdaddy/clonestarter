@@ -18,6 +18,7 @@ let initialState = {
 }
 
 const SELECT_CATEGORY = 'SELECT_CATEGORY';
+const SET_BLURB = 'SET_BLURB';
 
 export function selectCategory( category ){
     return {
@@ -25,12 +26,20 @@ export function selectCategory( category ){
         payload:category
     }
 }
+export function setBlurb( blurb ){
+    return{
+        type:SET_BLURB,
+        payload:blurb
+    }
+}
 
 
 export default function reducer( state = initialState, action){
     switch(action.type){
         case SELECT_CATEGORY:
-            return Object.assign({}, state, {category:action.payload});
+            return Object.assign({}, state, { category: action.payload});
+        case SET_BLURB:
+            return Object.assign({}, state, { shortBlurb: action.payload});
         default: return state
     }
 }

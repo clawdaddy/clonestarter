@@ -9,7 +9,7 @@ class ProjectCreation extends Component {
         return (
             <Switch>
                 <Route
-                    path={this.props.match.url+'/setup'}
+                    path={this.props.match.url+'/setup/:page'}
                     component={ProjectSetup}
                 />
                 <Route
