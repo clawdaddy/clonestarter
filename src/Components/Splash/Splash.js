@@ -8,6 +8,7 @@ import Articles from '../Articles/Articles';
 import Footer from './../Footer/Footer';
 import Subscribe from './../Subscribe/Subscribe';
 import loremIpsum from 'lorem-ipsum';
+import Nav from './../Nav/Nav';
 
 class Splash extends Component {
     constructor(){
@@ -145,6 +146,7 @@ class Splash extends Component {
         const {bigQuote} = this.state;
         return(
             <div>
+                <Nav/>
                 <Stats/>
                 <ProjectsPreview/>
                 <ProjectsWeLove 

@@ -30,6 +30,8 @@
 a{
     font-size:14px;
     color:#282828;
+    font-weight: 100;
+    line-height: 21px;
 }
 a:hover{
     text-decoration: underline;
@@ -359,6 +361,11 @@ p{
     color:black;
     grid-column: 3/4;
     grid-row:2/3;
+    line-height: 50px;
+    /* flex-basis:600px; */
+}
+.big-quote-quote:hover{
+    text-decoration: none;
 }
 .big-quote-read{
     grid-column:3/4;
@@ -481,6 +488,7 @@ p{
     grid-row:2/3;
     font-weight:100;
     color:#282828;
+    text-align: center;
 }
 .subscribe-input{
     grid-column:1/2;

@@ -7,13 +7,13 @@ function ProjectsWeLove(props){
     const {projects} = props;
     const projectCards = projects.map( (project, i) => {
         return(
-            <div className={`love-${i}`} key={`love-box-${i}`}>
+            <a className={`love-${i}`} key={`love-box-${i}`}>
                 <ImageBox
                     featured={project}
                 />
                 <p>{project.description}</p>
                 <p className='snippet-funded'>{project.funded}</p>
-            </div>
+            </a>
         )
     })
     return(

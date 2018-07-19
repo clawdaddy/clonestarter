@@ -3,17 +3,25 @@ import { HashRouter, Switch, Route} from 'react-router-dom';
 import './App.css';
 import Nav from './Components/Nav/Nav';
 import Splash from './Components/Splash/Splash';
+import ProjectCreation from './Components/ProjectCreation';
+import { Provider } from 'react-redux';
+import store from './dux/store'
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Nav/>
-        <HashRouter>
-          <Switch>
-            <Route exact path='/' component={Splash}/>
-          </Switch>
-        </HashRouter>
+        {/* <Nav/> */}
+        <Provider store={store}>
+          <HashRouter>
+            
+            <Switch>
+              {/* <Route path='/' component={Nav}/> */}
+              <Route exact path='/' component={Splash}/>
+              <Route path='/projectCreate' component={ProjectCreation}/>
+            </Switch>
+          </HashRouter>
+        </Provider>
       </div>
     );
   }

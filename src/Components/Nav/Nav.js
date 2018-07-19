@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Link from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import FaSearch from 'react-icons/lib/fa/search';
 import './../Splash/Splash.css';
 
@@ -20,9 +20,9 @@ class Nav extends Component {
                     <a>
                         Explore
                     </a>
-                    <a>
+                    <Link to='/projectCreate/setup/1'>
                         Start <span className='nav-hide'>a project</span>
-                    </a>
+                    </Link>
                 </div>
                 <h1 className='logo'>CLONESTARTER</h1>
                 <div className='filler-mid'></div>
