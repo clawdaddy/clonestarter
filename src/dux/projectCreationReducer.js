@@ -1,3 +1,5 @@
+// import axios from 'axios';
+
 let initialState = {
     category:'',
     subcategory:'',
@@ -12,6 +14,7 @@ let initialState = {
     atLeastEighteen:false,
     canVerifyBankAndId:false,
     hasDebitOrCreditCard:false,
+    projectId:0,
     rewards:[
         {
             title:'',
@@ -27,6 +30,8 @@ const SELECT_COUNTRY = 'SET_COUNTRY';
 const TOGGLE_AGE_EIGHTEEN = 'TOGGLE_AGE_EIGHTEEN';
 const TOGGLE_VERIFY_ID = 'TOGGLE_VERIFY_ID';
 const TOGGLE_DEBIT_CREDIT = 'TOGGLE_DEBIT_CREDIT';
+const SAVE_SETUP_TYPE = 'SAVE_SETUP';
+const SET_PROJECT_FROM_DB = 'SET_PROJECT_FROM_DB';
 
 export function selectCategory( category ){
     return {
@@ -69,6 +74,27 @@ export function toggleDebitCredit ( bool ){
     }
 }
 
+// export function saveSetup( category, blurb, country ){
+//     //I'm not currently using this version, but haven't decided to get rid of it. See the associated cases below.
+//     return{
+//         type:SAVE_SETUP_TYPE,
+//         payload: axios.post('/api/addProject', {category, blurb, country}).then( response => {
+//             return response.data[0].id
+//         })
+//     }
+// }
+export function saveSetup( id ){
+    return {
+        type:SAVE_SETUP_TYPE,
+        payload:id
+    }
+}
+export function setProjectFromDB( project ){
+    return {
+        type:SET_PROJECT_FROM_DB,
+        payload:project
+    }
+}
 
 export default function reducer( state = initialState, action){
     switch(action.type){
@@ -84,6 +110,24 @@ export default function reducer( state = initialState, action){
             return Object.assign({}, state, { canVerifyBankAndId: action.payload });
         case TOGGLE_DEBIT_CREDIT:
             return Object.assign({}, state, { hasDebitOrCreditCard: action.payload });
+        //The following cases are associated with the version of saveSetup that uses promise middleware to make an axios call. I'm not currently using this, but it's a good example in case I need to use it in the future.
+        // case `${SAVE_SETUP_TYPE}_PENDING`:
+        //     return state;
+        // case `${SAVE_SETUP_TYPE}_FULFILLED`:
+        //     console.log(action.payload)
+        //     return Object.assign({},state, { isFulfilled:true, projectId:action.payload } );
+        // case `${SAVE_SETUP_TYPE}_REJECTED`:
+        //     return Object.assign({}, state, { isRejected:true, error:action.payload })
+        case SAVE_SETUP_TYPE:
+            return Object.assign({}, state, {projectId:action.payload})
+        case SET_PROJECT_FROM_DB:
+            const { id:projectId, category, idea:shortBlurb,country, image, title, subcategory, project_location:projectLocation, funding_duration:fundingDuration, funding_goal:fundingGoal } = action.payload;
+            console.log(projectId, category, shortBlurb, country, image, title, subcategory, projectLocation, fundingDuration, fundingGoal);
+            
+            return Object.assign({}, state, 
+                {
+                    projectId, category, shortBlurb, country, image, title, subcategory, projectLocation, fundingDuration, fundingGoal
+                })
         default: return state;
     }
 }

@@ -5,7 +5,6 @@ class CharacterLimitInput extends Component {
         super(props);
         this.state = {
             charactersLeft:+props.characters - props.value.length,
-
         }
     }
     handleInput = (value) => {

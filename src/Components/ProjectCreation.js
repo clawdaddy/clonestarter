@@ -13,11 +13,11 @@ class ProjectCreation extends Component {
                     component={ProjectSetup}
                 />
                 <Route
-                    path={this.props.match.url+'/overview/:projectid'}
+                    path={this.props.match.url+'/overview/:id'}
                     component={OverviewPage}
                 />
                 <Route
-                    path={this.props.match.url+'/edit/:projectid'}
+                    path={this.props.match.url+'/edit'}
                     component={OverviewEdit}
                 />
             </Switch>

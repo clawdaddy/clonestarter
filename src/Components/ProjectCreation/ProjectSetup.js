@@ -96,6 +96,8 @@ class ProjectSetup extends Component {
                     <Route path={'/projectCreate/setup/3'} component={PageThree}/>
                     <Redirect from={'/projectCreate/setup/4'} to='/projectCreate/overview'/>
                 </Switch>
+                {/* 
+                I commented out the code following this statement because I realized it would be easier to handle the page changes from inside each page component. I was trying to be clever before, but this way works much better.
                 {
                     current.back
                     ?   <Link 
@@ -105,14 +107,14 @@ class ProjectSetup extends Component {
                         {current.backText}
                     </Link>
                     : <p>{current.backText}</p>
-                }
-                <Link to={'/projectCreate/setup/'+ (+this.state.currentPage+1)}>
+                } */}
+                {/* <Link to={'/projectCreate/setup/'+ (+this.state.currentPage+1)}>
                     <button 
                         // onClick={() => this.handleNextPage(1)}
                     >
                         {current.nextText}
                     </button>
-                </Link>
+                </Link> */}
             </div>
         );
     }
