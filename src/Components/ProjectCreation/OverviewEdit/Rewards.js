@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class LocationSelector extends Component {
+class Rewards extends Component {
     render() {
         return (
             <div>
-                
+                rewards
             </div>
         );
     }
 }
 
-export default LocationSelector;
+export default Rewards;

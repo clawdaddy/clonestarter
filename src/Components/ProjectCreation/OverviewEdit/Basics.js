@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class LocationSelector extends Component {
+class Basics extends Component {
     render() {
         return (
             <div>
-                
+                basics
             </div>
         );
     }
 }
 
-export default LocationSelector;
+export default Basics;

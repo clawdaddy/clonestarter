@@ -75,6 +75,9 @@ class OverviewPage extends Component {
             })
         }
     }
+    goToEditSection = ( url ) => {
+        this.props.history.push(url)
+    }
     render() {
         return (
             <div>
@@ -82,6 +85,8 @@ class OverviewPage extends Component {
                 <OverviewTracker 
                     title='Basics'
                     tasks={this.state.basicsText}
+                    editSectionURL = '/projectCreate/edit/basics'
+                    goToEditSection = {this.goToEditSection}
                 />
             </div>
         );

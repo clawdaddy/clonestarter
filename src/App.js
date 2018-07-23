@@ -11,15 +11,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* <Nav/> */}
         <Provider store={store}>
           <HashRouter>
-            
+            <div>
+            <Route path='/' component={Nav}/>
             <Switch>
               {/* <Route path='/' component={Nav}/> */}
               <Route exact path='/' component={Splash}/>
               <Route path='/projectCreate' component={ProjectCreation}/>
             </Switch>
+            </div>
           </HashRouter>
         </Provider>
       </div>

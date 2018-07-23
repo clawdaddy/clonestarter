@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class LocationSelector extends Component {
+class Preview extends Component {
     render() {
         return (
             <div>
-                
+                preview
             </div>
         );
     }
 }
 
-export default LocationSelector;
+export default Preview;

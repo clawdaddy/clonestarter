@@ -17,7 +17,7 @@ class ProjectCreation extends Component {
                     component={OverviewPage}
                 />
                 <Route
-                    path={this.props.match.url+'/edit'}
+                    path={this.props.match.url+'/edit/'}
                     component={OverviewEdit}
                 />
             </Switch>
