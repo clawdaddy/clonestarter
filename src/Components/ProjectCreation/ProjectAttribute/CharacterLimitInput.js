@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './CharacterLimitInput.css'
 
 class CharacterLimitInput extends Component {
     constructor(props) {
@@ -15,12 +16,14 @@ class CharacterLimitInput extends Component {
     }
     render() {
         return (
-            <div>
+            <div className='character_limit'>
                 <input 
                     value={this.props.value}
                     onChange={(e) => this.handleInput(e.target.value)}
+                    maxLength={+this.props.characters}
+                    className='limit_input'
                 />
-                <div>{this.state.charactersLeft}/{this.props.characters}</div>
+                <span className='counter'>{this.state.charactersLeft}/{this.props.characters}</span>
             </div>
         );
     }

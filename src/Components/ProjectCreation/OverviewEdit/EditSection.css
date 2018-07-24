@@ -1,0 +1,19 @@
+.edit_section{
+    display:flex;
+    justify-content: space-between;
+    padding:5px;
+    background-color:#f8f9fd;
+    margin-bottom:18px;
+}
+.edit_section_title{
+    width:33%;
+}
+.edit_section_inputs{
+    display:flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-overflow: wrap;
+}
+.edit_section_inputs div p {
+    width:100%;
+}

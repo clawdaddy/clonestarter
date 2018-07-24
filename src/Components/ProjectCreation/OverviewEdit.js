@@ -16,15 +16,6 @@ class OverviewEdit extends Component {
         return (
             <div className='overview_edit'>
                 <EditNav currentSection = {this.props.match.url}/>
-                {/* {
-                    (function(){
-                        switch(this.props.match.params.route){
-                            case basics:
-                                return <Basics/>
-                        }
-                    })()
-                    
-                } */}
                 <Switch>
                     <Route path='/projectCreate/edit/basics' component={Basics}/>
                     <Route path='/projectCreate/edit/rewards'

@@ -8,6 +8,7 @@ import EditSection from './EditSection';
 import RegularInput from './../ProjectAttribute/RegularInput';
 import { connect } from 'react-redux';
 import { setTitle, selectCategory, setBlurb, selectSubcategory, setGoal } from './../../../dux/projectCreationReducer';
+import '../OverviewEdit.css';
 
 
 function mapStateToProps( state ){
@@ -27,19 +28,6 @@ class Basics extends Component {
         super(props);
         this.state = {
             subcategoryOptions:['']
-        }
-        this.styles = {
-            container:{
-                display:'flex',
-            },
-            editContainers:{
-                display:'flex',
-                flexDirection:'column'
-            },
-            tips:{
-                display:'flex',
-                flexDirection:'column'
-            }
         }
     }
     componentDidMount(){
@@ -273,117 +261,126 @@ class Basics extends Component {
     
     render() {
         return (
-            <div style={this.styles.container}>
-                <div style={this.styles.editContainers}>
-                    <EditSection
-                        title='Project image'
-                        inputs={
-                            [
-                                <p key='image'>dropbox goes here</p>
-                            ]
-                        }
-                    
-                    />
-                    <EditSection
-                        title='Project title'
-                        inputs={
-                            [
-                                <CharacterLimitInput
-                                    characters='60'
-                                    value={this.props.projectTitle}
-                                    callbackFn={this.props.setTitle}
-                                    key='project-title'
-                                />,
-                                <p key='project-title-explain'>Our search looks through words from your project title and blurb, so make them clear and descriptive of what you’re making. Your profile name will be searchable, too.
+            <div className='overview_edit_container'>
+                <h1>Let's get started.</h1>
+                <p>Make a great first impression with your project’s title and image, and set your funding goal, campaign duration, and project category.
 
-                                These words will help people find your project, so choose them wisely! Your name will be searchable too.</p>
-                            ]
-                        }
-                    />
-                    <EditSection
-                        title='Short blurb'
-                        inputs={
-                            [
-                                <CharacterLimitInput
-                                    characters='135'
-                                    value={this.props.shortBlurb}
-                                    callbackFn={this.props.setBlurb}
-                                    key='short-blurb'
-                                />,
-                                <p key='short-blurb-explain'>Give people a sense of what you’re doing. Skip “Help me” and focus on what you’re making.</p>
-                            ]
-                        }
-                    />
-                    <EditSection
-                        title='Category'
-                        inputs={
-                            [
-                                <DropdownSelector
-                                    options={[
-                                        'Art',
-                                        'Comics',
-                                        'Crafts',
-                                        'Dance',
-                                        'Design',
-                                        'Fashion',
-                                        'Film & Video',
-                                        'Food',
-                                        'Games',
-                                        'Journalism',
-                                        'Music',
-                                        'Photography',
-                                        'Publishing',
-                                        'Technology',
-                                        'Theater'
-                                    ]}
-                                    selected={this.props.category}
-                                    placeholder='Select a category'
-                                    callbackFn={this.props.selectCategory}
-                                    key='select-category'
-                                />,
-                                <DropdownSelector
-                                    options={this.state.subcategoryOptions}
-                                    selected={this.props.subcategory}
-                                    placeholder='Subcategory (optional)'
-                                    callbackFn={
-                                        this.props.selectSubcategory
-                                    }
-                                    key='select-subcategory'
-                                />
-                            ]
-                        }
-                    
-                    />
-                    <EditSection
-                        title='Project location'
-                        inputs={
-                            [
-                                <p key='location'> project location input goes here</p>
-                            ]
-                        }
-                    />
-                    <EditSection
-                        title='Funding duration'
-                        inputs={
-                            [
-                                <p key='funding'> funding duration inputs go here</p>
-                            ]
-                        }
-                    />
-                    <EditSection
-                        title='Funding goal'
-                        inputs={
-                            [
-                                <RegularInput
-                                    value={this.props.fundingGoal}
-                                    callbackFn={this.props.setGoal}
-                                />
-                            ]
-                        }
-                    />
-                </div>
-                <div style={this.styles.tips}>
-                    tips
+
+                </p>
+                <div className='overview_edit_section'>
+                    <div className='overview_section_inputs'>
+                        <EditSection
+                            title='Project image'
+                            inputs={
+                                [
+                                    <p key='image'>dropbox goes here</p>
+                                ]
+                            }
+                        
+                        />
+                        <EditSection
+                            title='Project title'
+                            inputs={
+                                [
+                                    <CharacterLimitInput
+                                        characters='60'
+                                        value={this.props.projectTitle}
+                                        callbackFn={this.props.setTitle}
+                                        key='project-title'
+                                        setup='inside'
+                                    />,
+                                    <p key='project-title-explain'>Our search looks through words from your project title and blurb, so make them clear and descriptive of what you’re making. Your profile name will be searchable, too.</p>,
+                                    <p>
+                                    These words will help people find your project, so choose them wisely! Your name will be searchable too.</p>
+                                ]
+                            }
+                        />
+                        <EditSection
+                            title='Short blurb'
+                            inputs={
+                                [
+                                    <CharacterLimitInput
+                                        characters='135'
+                                        value={this.props.shortBlurb}
+                                        callbackFn={this.props.setBlurb}
+                                        key='short-blurb'
+                                        setup='inside'
+                                    />,
+                                    <p key='short-blurb-explain'>Give people a sense of what you’re doing. Skip “Help me” and focus on what you’re making.</p>
+                                ]
+                            }
+                        />
+                        <EditSection
+                            title='Category'
+                            inputs={
+                                [
+                                    <DropdownSelector
+                                        options={[
+                                            'Art',
+                                            'Comics',
+                                            'Crafts',
+                                            'Dance',
+                                            'Design',
+                                            'Fashion',
+                                            'Film & Video',
+                                            'Food',
+                                            'Games',
+                                            'Journalism',
+                                            'Music',
+                                            'Photography',
+                                            'Publishing',
+                                            'Technology',
+                                            'Theater'
+                                        ]}
+                                        selected={this.props.category}
+                                        placeholder='Select a category'
+                                        callbackFn={this.props.selectCategory}
+                                        key='select-category'
+                                    />,
+                                    <DropdownSelector
+                                        options={this.state.subcategoryOptions}
+                                        selected={this.props.subcategory}
+                                        placeholder='Subcategory (optional)'
+                                        callbackFn={
+                                            this.props.selectSubcategory
+                                        }
+                                        key='select-subcategory'
+                                    />
+                                ]
+                            }
+                        
+                        />
+                        <EditSection
+                            title='Project location'
+                            inputs={
+                                [
+                                    <p key='location'> project location input goes here</p>
+                                ]
+                            }
+                        />
+                        <EditSection
+                            title='Funding duration'
+                            inputs={
+                                [
+                                    <p key='funding'> funding duration inputs go here</p>
+                                ]
+                            }
+                        />
+                        <EditSection
+                            title='Funding goal'
+                            inputs={
+                                [
+                                    <RegularInput
+                                        value={this.props.fundingGoal}
+                                        callbackFn={this.props.setGoal}
+                                    />
+                                ]
+                            }
+                        />
+                    </div>
+                    <div className='overview_section_tips'>
+                        tips
+                    </div>
                 </div>
             </div>
         );
