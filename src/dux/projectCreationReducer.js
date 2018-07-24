@@ -10,7 +10,7 @@ let initialState = {
     projectLocation:'',
     fundingDuration:30,
     fundingEndDate:'',
-    fundingGoal:0,
+    fundingGoal:'$',
     atLeastEighteen:false,
     canVerifyBankAndId:false,
     hasDebitOrCreditCard:false,
@@ -25,7 +25,10 @@ let initialState = {
 }
 
 const SELECT_CATEGORY = 'SELECT_CATEGORY';
+const SELECT_SUBCATEGORY = 'SELECT_SUBCATEGORY';
 const SET_BLURB = 'SET_BLURB';
+const SET_TITLE = 'SET_TITLE';
+const SET_GOAL = 'SET_GOAL';
 const SELECT_COUNTRY = 'SET_COUNTRY';
 const TOGGLE_AGE_EIGHTEEN = 'TOGGLE_AGE_EIGHTEEN';
 const TOGGLE_VERIFY_ID = 'TOGGLE_VERIFY_ID';
@@ -33,10 +36,19 @@ const TOGGLE_DEBIT_CREDIT = 'TOGGLE_DEBIT_CREDIT';
 const SAVE_SETUP_TYPE = 'SAVE_SETUP';
 const SET_PROJECT_FROM_DB = 'SET_PROJECT_FROM_DB';
 
+
+
 export function selectCategory( category ){
     return {
         type:SELECT_CATEGORY,
         payload: category
+    }
+}
+
+export function selectSubcategory( subcategory ){
+    return {
+        type:SELECT_SUBCATEGORY,
+        payload:subcategory
     }
 }
 export function setBlurb( blurb ){
@@ -95,11 +107,26 @@ export function setProjectFromDB( project ){
         payload:project
     }
 }
+export function setTitle( title ){
+    return {
+        type:SET_TITLE,
+        payload: title
+    }
+}
+
+export function setGoal( goal ){
+    return {
+        type:SET_GOAL,
+        payload: goal
+    }
+}
 
 export default function reducer( state = initialState, action){
     switch(action.type){
         case SELECT_CATEGORY:
             return Object.assign({}, state, { category: action.payload });
+        case SELECT_SUBCATEGORY:
+            return Object.assign({}, state, { subcategory: action.payload})
         case SET_BLURB:
             return Object.assign({}, state, { shortBlurb: action.payload });
         case SELECT_COUNTRY:
@@ -119,15 +146,17 @@ export default function reducer( state = initialState, action){
         // case `${SAVE_SETUP_TYPE}_REJECTED`:
         //     return Object.assign({}, state, { isRejected:true, error:action.payload })
         case SAVE_SETUP_TYPE:
-            return Object.assign({}, state, {projectId:action.payload})
+            return Object.assign({}, state, { projectId:action.payload })
         case SET_PROJECT_FROM_DB:
             const { id:projectId, category, idea:shortBlurb,country, image, title, subcategory, project_location:projectLocation, funding_duration:fundingDuration, funding_goal:fundingGoal } = action.payload;
-            console.log(projectId, category, shortBlurb, country, image, title, subcategory, projectLocation, fundingDuration, fundingGoal);
-            
             return Object.assign({}, state, 
                 {
                     projectId, category, shortBlurb, country, image, title, subcategory, projectLocation, fundingDuration, fundingGoal
                 })
+        case SET_TITLE:
+            return Object.assign({}, state, { projectTitle: action.payload })
+        case SET_GOAL:
+            return Object.assign({}, state, { fundingGoal: action.payload })
         default: return state;
     }
 }

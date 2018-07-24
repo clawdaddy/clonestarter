@@ -146,7 +146,7 @@ class Splash extends Component {
         const {bigQuote} = this.state;
         return(
             <div>
-                <Nav/>
+                {/* <Nav/> */}
                 <Stats/>
                 <ProjectsPreview/>
                 <ProjectsWeLove 

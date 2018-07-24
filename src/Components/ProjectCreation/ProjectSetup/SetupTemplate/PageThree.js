@@ -48,7 +48,30 @@ class PageThree extends Component {
                     callbackFn={this.props.selectCountry}
                     placeholder='Select your country'
                     selected={this.props.country}
-                    options={['murica','Mehicho']}
+                    options={[
+                        'Australia',
+                        'Austria',
+                        'Belgium',
+                        'Canada',
+                        'Denmark',
+                        'France',
+                        'Germany',
+                        'Hong Kong',
+                        'Ireland',
+                        'Italy',
+                        'Japan',
+                        'Luxembourg',
+                        'Mexico',
+                        'New Zealand',
+                        'Norway',
+                        'Singapore',
+                        'Spain',
+                        'Sweden',
+                        'the Netherlands',
+                        'the United Kingdom',
+                        'the United States'
+                    ]
+                    }
                 />
                 <Checkmark
                     callbackFn={this.props.toggleAgeEighteen}

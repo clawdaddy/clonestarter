@@ -8,23 +8,34 @@ import Profile from './OverviewEdit/Profile';
 import Account from './OverviewEdit/Account';
 import EditNav from './OverviewEdit/EditNav';
 import Preview from './OverviewEdit/Preview';
+import './OverviewEdit.css';
 
 class OverviewEdit extends Component {
+    
     render() {
         return (
-            <div>
-                <EditNav/>
+            <div className='overview_edit'>
+                <EditNav currentSection = {this.props.match.url}/>
+                {/* {
+                    (function(){
+                        switch(this.props.match.params.route){
+                            case basics:
+                                return <Basics/>
+                        }
+                    })()
+                    
+                } */}
                 <Switch>
-                    <Route path={this.props.match.url+'/basics'} component={Basics}/>
-                    <Route path={this.props.match.url+'/rewards'}
+                    <Route path='/projectCreate/edit/basics' component={Basics}/>
+                    <Route path='/projectCreate/edit/rewards'
                     component={Rewards}/>
-                    <Route path={this.props.match.url+'/story'}
+                    <Route path='/projectCreate/edit/story'
                     component={Story}/>
-                    <Route path={this.props.match.url+'/profile'}
+                    <Route path='/projectCreate/edit/profile'
                     component={Profile}/>
-                    <Route path={this.props.match.url+'/account'}
+                    <Route path='/projectCreate/edit/account'
                     component={Account}/>
-                    <Route path={this.props.match.url+'/preview'}
+                    <Route path='/projectCreate/edit/preview'
                     component={Preview}/>
                 </Switch>
                

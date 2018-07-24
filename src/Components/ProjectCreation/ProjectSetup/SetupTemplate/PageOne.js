@@ -16,7 +16,23 @@ class PageOne extends Component {
                 <DropdownSelector 
                     placeholder='Select your category'
                     selected={this.props.category}
-                    options={['an option','a second option','a third','a fourth','a fifth','a sixth','a seventh','an eighth','a ninth', 'a tenth','an eleventh','a twelfth']}
+                    options={[
+                        'Art',
+                        'Comics',
+                        'Crafts',
+                        'Dance',
+                        'Design',
+                        'Fashion',
+                        'Film & Video',
+                        'Food',
+                        'Games',
+                        'Journalism',
+                        'Music',
+                        'Photography',
+                        'Publishing',
+                        'Technology',
+                        'Theater'
+                    ]}
                     callbackFn={this.props.selectCategory}
                 />
                 <p>Welcome.</p>
