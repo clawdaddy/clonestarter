@@ -11,6 +11,7 @@ import Preview from './OverviewEdit/Preview';
 import SaveProject from './OverviewEdit/SaveProject';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import './OverviewEdit.css';
 
@@ -59,17 +60,30 @@ class OverviewEdit extends Component {
             <div className='overview_edit'>
                 <EditNav currentSection = {this.props.match.url}/>
                 <Switch>
-                    <Route path='/projectCreate/edit/basics' component={Basics}/>
-                    <Route path='/projectCreate/edit/rewards'
-                    component={Rewards}/>
-                    <Route path='/projectCreate/edit/story'
-                    component={Story}/>
-                    <Route path='/projectCreate/edit/profile'
-                    component={Profile}/>
-                    <Route path='/projectCreate/edit/account'
-                    component={Account}/>
-                    <Route path='/projectCreate/edit/preview'
-                    component={Preview}/>
+                    <Route 
+                        path='/projectCreate/edit/basics' 
+                        component={Basics}
+                    />
+                    <Route 
+                        path='/projectCreate/edit/rewards'
+                        component={Rewards}
+                    />
+                    <Route 
+                        path='/projectCreate/edit/story'
+                        component={Story}
+                    />
+                    <Route 
+                        path='/projectCreate/edit/profile'
+                        component={Profile}
+                    />
+                    <Route 
+                        path='/projectCreate/edit/account'
+                        component={Account}
+                    />
+                    <Route 
+                        path='/projectCreate/edit/preview'
+                        component={Preview}
+                    />
                 </Switch>
                 <SaveProject toggleSave = {this.state.toggleSave}/>
                

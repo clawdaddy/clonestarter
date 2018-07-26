@@ -1,4 +1,6 @@
 // import axios from 'axios';
+// require('dotenv').config();
+// const { REACT_APP_PROJECT_NUMBER } = process.env
 
 let initialState = {
     category:'',
