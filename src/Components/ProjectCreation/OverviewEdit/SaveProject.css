@@ -1,0 +1,62 @@
+.save_project{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width:100vw;
+    background-color:white;
+    opacity: 95%;
+    height:0px;
+    transition: height 0.5s ease-in-out;
+}
+.save_project_display{
+    height:75px;
+    transition: height 0.5s ease-in-out;
+}
+.save_project_buttons{
+    width:900px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    
+
+}
+.save_project_discard{
+    border:0;
+    background-color:inherit;
+    color:#282828;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    display:none;
+}
+.save_project_discard_display{
+    display:inline;
+}
+.save_project_discard:focus{
+    outline: dashed 1px;
+}
+.save_project_save{
+    border:0;
+    border-radius: 0;
+    color:white;
+    background-color:#007460;
+    transition: all 0.2s ease-in-out;
+    font-size: 14px;
+    padding:10px 20px;
+    margin-left:10px;
+    font-weight: 400;
+    cursor: pointer;
+    display:none;
+}
+.save_project_save_display{
+    display: inline;
+}
+.save_project_save:focus{
+    outline: dashed 1px; 
+}
+.save_project_save:hover{
+    background-color: #004853;
+    transition: all 0.2s ease-in-out;
+}

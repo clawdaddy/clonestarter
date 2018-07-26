@@ -14,5 +14,9 @@ module.exports = {
         req.app.get('db').getProject([projectId]).then( result => {
             res.status(200).send(result)
         })
+    },
+    saveProject: (req, res, next) => {
+        const { category, subcategory, country, projectImage, projectTitle, shortBlurb, projectLocation, fundingDuration, fundingEndDate, fundingGoal, rewards } = req.body;
+        const { projectId } = req.params;
     }
 }

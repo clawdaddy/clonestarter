@@ -276,6 +276,7 @@ class Basics extends Component {
                                     <p key='image'>dropbox goes here</p>
                                 ]
                             }
+                            key='project-image'
                         
                         />
                         <EditSection
@@ -290,10 +291,11 @@ class Basics extends Component {
                                         setup='inside'
                                     />,
                                     <p key='project-title-explain'>Our search looks through words from your project title and blurb, so make them clear and descriptive of what you’re making. Your profile name will be searchable, too.</p>,
-                                    <p>
+                                    <p key='project-title-explain-2'>
                                     These words will help people find your project, so choose them wisely! Your name will be searchable too.</p>
                                 ]
                             }
+                            key='project-title'
                         />
                         <EditSection
                             title='Short blurb'
@@ -309,6 +311,7 @@ class Basics extends Component {
                                     <p key='short-blurb-explain'>Give people a sense of what you’re doing. Skip “Help me” and focus on what you’re making.</p>
                                 ]
                             }
+                            
                         />
                         <EditSection
                             title='Category'
@@ -373,6 +376,7 @@ class Basics extends Component {
                                     <RegularInput
                                         value={this.props.fundingGoal}
                                         callbackFn={this.props.setGoal}
+                                        key='funding-goal-input'
                                     />
                                 ]
                             }

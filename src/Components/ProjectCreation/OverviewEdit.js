@@ -8,10 +8,52 @@ import Profile from './OverviewEdit/Profile';
 import Account from './OverviewEdit/Account';
 import EditNav from './OverviewEdit/EditNav';
 import Preview from './OverviewEdit/Preview';
+import SaveProject from './OverviewEdit/SaveProject';
+import axios from 'axios';
+import { connect } from 'react-redux';
+
 import './OverviewEdit.css';
 
+function mapStateToProps( state ){
+    const { category, subcategory, country, projectImage, projectTitle, shortBlurb, projectLocation, fundingDuration, fundingEndDate, fundingGoal, projectId, rewards } = state;
+    return { category, subcategory, country, projectImage, projectTitle, shortBlurb, projectLocation, fundingDuration, fundingEndDate, fundingGoal, projectId, rewards }
+}
+
 class OverviewEdit extends Component {
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            toggleSave:false
+        }
+    }
+    componentDidUpdate(prevProps, prevState, snapshot){
+        if (
+            prevProps.category !== this.props.category ||
+            prevProps.subcategory !== this.props.subcategory ||
+            prevProps.country !== this.props.country ||
+            prevProps.projectImage !== this.props.projectImage ||
+            prevProps.projectTitle !== this.props.projectTitle ||
+            prevProps.shortBlurb !== this.props.shortBlurb ||
+            prevProps.projectLocation !== this.props.projectLocation ||
+            prevProps.fundingDuration !== this.props.fundingDuration ||
+            prevProps.fundingEndDate !== this.props.fundingEndDate ||
+            prevProps.fundingGoal !== this.props.fundingGoal ||
+            prevProps.projectId !== this.props.projectId ||
+            prevProps.rewards !== this.props.rewards
+        ){
+            this.setState({
+                toggleSave:true
+            })
+        }
+    }
+    handleSave(){
+        const { category, subcategory, country, projectImage, projectTitle, shortBlurb, projectLocation, fundingDuration, fundingEndDate, fundingGoal, projectId, rewards} = this.props;
+        axios.put(`/api/saveProject/${projectId}`, {category, subcategory, country, projectImage, projectTitle, shortBlurb, projectLocation, fundingDuration, fundingEndDate, fundingGoal, rewards})
+            .then( response => {
+
+            })
+
+    }
     render() {
         return (
             <div className='overview_edit'>
@@ -29,10 +71,11 @@ class OverviewEdit extends Component {
                     <Route path='/projectCreate/edit/preview'
                     component={Preview}/>
                 </Switch>
+                <SaveProject toggleSave = {this.state.toggleSave}/>
                
             </div>
         );
     }
 }
 
-export default OverviewEdit;
+export default connect(mapStateToProps, null)(OverviewEdit);
