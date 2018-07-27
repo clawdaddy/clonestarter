@@ -48,7 +48,6 @@ app.get("/auth/callback", (req, res, next) => {
     );
   }
   function storeUserInfoInDatabase(userInfoResponse) {
-    console.log("hit store info");
     const { sub, email, name, picture } = userInfoResponse.data;
     app
       .get("db")
@@ -76,18 +75,18 @@ app.get("/auth/callback", (req, res, next) => {
 });
 app.get("/auth/me", (req, res, next) => {
   if (req.session.user) {
-    console.log("hit user");
     res.status(200).send(req.session.user);
   } else {
-    console.log("hit redirect");
     res.status(200).send("redirect");
   }
 });
+app.delete("/auth/logout", (req, res, next) => req.session.destroy(err => console.log(err)))
 
 app.post("/api/addProject", projectCreationController.addProject);
 app.get("/api/getAllProjects", projectCreationController.getAllProjects);
 app.get("/api/getProject/:projectId", projectCreationController.getProject);
 app.put("/api/saveProject/:projectId", projectCreationController.saveProject);
+
 
 app.listen(SERVER_PORT, () =>
   console.log(`Kicking things off on port ${SERVER_PORT}`)
