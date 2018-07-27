@@ -10,7 +10,11 @@ class Nav extends Component {
 
         }
     }
-
+    login = () => {
+        let redirecturi = encodeURIComponent(`${window.location.origin}/auth/callback`)
+        console.log(redirecturi)
+        window.location = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/authorize?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${redirecturi}&response_type=code`
+    }
     render(){
 
         return(
@@ -20,7 +24,9 @@ class Nav extends Component {
                     <a>
                         Explore
                     </a>
-                    <Link to='/projectCreate/setup/1'>
+                    <Link 
+                        to='/projectCreate/setup/1'
+                    >
                         Start <span className='nav-hide'>a project</span>
                     </Link>
                 </div>
@@ -31,7 +37,7 @@ class Nav extends Component {
                         Search   <FaSearch/>
                     </a>
                    <a className='nav-hide-2'> <FaSearch/></a>
-                    <a>
+                    <a onClick={this.login}>
                         Sign in
                     </a>
                 </div>

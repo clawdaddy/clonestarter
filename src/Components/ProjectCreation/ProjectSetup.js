@@ -8,6 +8,7 @@ import DropdownSelector from './ProjectAttribute/DropdownSelector';
 import PageOne from './ProjectSetup/SetupTemplate/PageOne';
 import PageTwo from './ProjectSetup/SetupTemplate/PageTwo';
 import PageThree from './ProjectSetup/SetupTemplate/PageThree';
+import axios from 'axios';
 
 function mapStateToProps(state) {
     return {
@@ -55,6 +56,14 @@ class ProjectSetup extends Component {
                 }
             ]
         }
+    }
+    componentDidMount(){
+        axios.get('/auth/me').then( response => {
+            console.log('setup response', response.status)
+            if (response.status === 401){
+                this.props.history.push('/login')
+            }
+        })
     }
     componentDidUpdate(prevProps, prevState, snapshot){
         if(prevProps.match.params.page !== this.props.match.params.page){

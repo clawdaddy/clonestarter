@@ -19,5 +19,6 @@ module.exports = {
         const { category, subcategory, country, projectImage, projectTitle, shortBlurb, projectLocation, fundingDuration, fundingEndDate, fundingGoal, rewards } = req.body;
         const { projectId } = req.params;
         
+
     }
 }

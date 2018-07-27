@@ -1,0 +1,1 @@
+SELECT * FROM about_you WHERE auth0_id = $1 LIMIT 1;
