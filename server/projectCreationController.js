@@ -10,6 +10,7 @@ module.exports = {
           .get("db")
           .connect_project_to_user([result[0].id, req.session.user.id])
           .then(result2 => {
+            req.session.projectId = result[0].id;
             res.status(200).send(result);
           });
       });
@@ -38,11 +39,27 @@ module.exports = {
       projectTitle,
       shortBlurb,
       projectLocation,
-      fundingDuration,
       fundingEndDate,
       fundingGoal,
       rewards
     } = req.body;
     const { projectId } = req.params;
-  }
-};
+    req.app
+      .get("db")
+      .saveProject([
+        +projectId,
+        category,
+        shortBlurb,
+        country,
+        projectImage,
+        projectTitle,
+        subcategory,
+        projectLocation,
+        fundingGoal,
+        fundingEndDate
+      ])
+      .then( response => {
+          res.status(200).send(response);
+        })
+    }
+}

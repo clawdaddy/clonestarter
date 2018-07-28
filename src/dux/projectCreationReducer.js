@@ -1,6 +1,7 @@
 // import axios from 'axios';
 // require('dotenv').config();
 // const { REACT_APP_PROJECT_NUMBER } = process.env
+import moment from 'moment'
 
 let initialState = {
   category: "",
@@ -11,8 +12,8 @@ let initialState = {
   shortBlurb: "",
   projectLocation: "",
   fundingDuration: 30,
-  fundingEndDate: "",
-  fundingGoal: "$",
+  fundingEndDate: "2019-12-31T08:30",
+  fundingGoal: 0,
   atLeastEighteen: false,
   canVerifyBankAndId: false,
   hasDebitOrCreditCard: false,
@@ -39,6 +40,8 @@ const TOGGLE_DEBIT_CREDIT = "TOGGLE_DEBIT_CREDIT";
 const SAVE_SETUP_TYPE = "SAVE_SETUP";
 const SET_PROJECT_FROM_DB = "SET_PROJECT_FROM_DB";
 const SET_USER = "SET_USER";
+const SET_END_DATE = "SET_END_DATE";
+const SET_LOCATION = 'SET_LOCATION';
 
 export function selectCategory(category) {
   return {
@@ -130,6 +133,19 @@ export function setUser(user) {
   };
 }
 
+export function setEndDate( date ){
+    return {
+        type: SET_END_DATE,
+        payload:date
+    }
+}
+
+export function setLocation( location ){
+    return {
+        type:SET_LOCATION,
+        payload:location
+    }
+}
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SELECT_CATEGORY:
@@ -163,23 +179,23 @@ export default function reducer(state = initialState, action) {
         idea: shortBlurb,
         country,
         image,
-        title,
+        title:projectTitle,
         subcategory,
         project_location: projectLocation,
-        funding_duration: fundingDuration,
+        end_date_time: fundingEndDate,
         funding_goal: fundingGoal
       } = action.payload;
       return Object.assign({}, state, {
-        projectId,
-        category,
-        shortBlurb,
-        country,
-        image,
-        title,
-        subcategory,
-        projectLocation,
-        fundingDuration,
-        fundingGoal
+        projectId:projectId || 0,
+        category: category || '',
+        shortBlurb: shortBlurb || '',
+        country: country || '',
+        image: image || '',
+        projectTitle: projectTitle || '',
+        subcategory: subcategory || '',
+        projectLocation: projectLocation || '',
+        fundingEndDate: moment(fundingEndDate).format("YYYY-MM-DDTHH:mm") || '',
+        fundingGoal: fundingGoal || 0
       });
     case SET_TITLE:
       return Object.assign({}, state, { projectTitle: action.payload });
@@ -187,6 +203,10 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, { fundingGoal: action.payload });
     case SET_USER:
       return Object.assign({}, state, { user: action.payload });
+    case SET_END_DATE:
+      return Object.assign({}, state, { fundingEndDate: action.payload })
+    case SET_LOCATION:
+      return Object.assign({}, state, { projectLocation: action.payload })
     default:
       return state;
   }

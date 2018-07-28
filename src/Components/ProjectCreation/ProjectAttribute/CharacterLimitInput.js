@@ -14,6 +14,13 @@ class CharacterLimitInput extends Component {
         })
         this.props.callbackFn(value)
     }
+    componentDidUpdate(prevProps, prevState, snapshot){
+        if(prevProps.value !== this.props.value){
+            this.setState({
+                charactersLeft:+this.props.characters - this.props.value.length
+            })
+        }
+    }
     render() {
         return (
             <div className='character_limit'>
