@@ -32,6 +32,7 @@ massive(DATABASE_CONNECTION).then(db => {
 });
 
 app.get("/auth/callback", (req, res, next) => {
+  console.log(req.headers.host)
   let payload = {
     client_id: REACT_APP_AUTH0_CLIENT_ID,
     client_secret: REACT_APP_AUTH0_CLIENT_SECRET,
@@ -105,7 +106,20 @@ app.get("/auth/me", (req, res, next) => {
     res.status(200).send("redirect");
   }
 });
-app.delete("/auth/logout", (req, res, next) => req.session.destroy(err => console.log(err)))
+app.get("/auth/logout", (req, res, next) =>{
+    req.session.destroy((err) =>{
+      if(err){
+        return next(err)
+      }else {
+        return res.redirect(FRONTEND_URL)
+      }
+     
+     
+    }
+    )
+    // res.redirect(FRONTEND_URL);
+  }
+)
 
 app.post("/api/addProject", projectCreationController.addProject);
 app.get("/api/getAllProjects", projectCreationController.getAllProjects);

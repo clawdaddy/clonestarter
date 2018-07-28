@@ -15,6 +15,7 @@ import { setUser } from "../../dux/projectCreationReducer";
 
 const actions = { setUser };
 
+
 class Splash extends Component {
   constructor() {
     super();

@@ -2,10 +2,11 @@ import React, { Component } from "react";
 
 class Login extends Component {
   componentDidMount() {
-    console.log("hit login");
+    
     let redirecturi = encodeURIComponent(
-      `${window.location.origin}/auth/callback`
+      `${window.location.origin}/auth/callback?`
     );
+    console.log(window.location.origin)
     window.location = `https://${
       process.env.REACT_APP_AUTH0_DOMAIN
     }/authorize?client_id=${

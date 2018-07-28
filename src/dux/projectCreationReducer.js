@@ -25,7 +25,7 @@ let initialState = {
       description: ""
     }
   ],
-  user: {}
+  user: {},
 };
 
 const SELECT_CATEGORY = "SELECT_CATEGORY";
@@ -146,6 +146,7 @@ export function setLocation( location ){
         payload:location
     }
 }
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SELECT_CATEGORY:

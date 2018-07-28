@@ -6,7 +6,9 @@ import OverviewEdit from "./ProjectCreation/OverviewEdit";
 import axios from "axios";
 import { connect } from "react-redux";
 import { setUser } from "./../dux/projectCreationReducer";
+
 const actions = { setUser };
+
 class ProjectCreation extends Component {
   componentDidMount() {
     axios.get("/auth/me").then(response => {

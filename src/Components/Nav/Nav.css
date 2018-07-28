@@ -1,0 +1,22 @@
+.nav_menu_container{
+    position: relative;
+    padding-left: 15px;
+    border-radius: 100%;
+}
+.nav_user_photo{
+    height:30px;
+    width:30px;
+    cursor: pointer;
+    border-radius: 100%;
+}
+.nav_menu{
+    display:none;
+    position: absolute;
+    border: 1px solid #9B9E9E;
+    background:#ffffff;
+    right:0;
+}
+.nav_menu_open{
+    display:flex;
+    flex-direction: column;
+}

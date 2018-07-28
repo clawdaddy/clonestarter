@@ -5,7 +5,7 @@ class NavMenuProjectLink extends Component {
     render() {
         return (
             <div>
-                <img src={this.props.projectPhoto}/>
+                <img alt='projectPhoto'src={this.props.projectPhoto}/>
                 <Link to={`/projectCreate/overview/${this.props.projectID}`}>{this.props.projectTitle}</Link>
 
             </div>

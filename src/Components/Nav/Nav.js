@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FaSearch from 'react-icons/lib/fa/search';
 import './../Splash/Splash.css';
+import NavMenu from './NavMenu';
 import { connect } from 'react-redux';
 
 function mapStateToProps( state ){
-    const { user } = state.user;
+    const { user } = state;
     return { user }
 }
 
@@ -22,7 +23,6 @@ class Nav extends Component {
         window.location = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/authorize?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${redirecturi}&response_type=code`
     }
     render(){
-
         return(
             <div className='nav'>
                 <div className='filler-left'></div>
@@ -43,9 +43,13 @@ class Nav extends Component {
                         Search   <FaSearch/>
                     </a>
                    <a className='nav-hide-2'> <FaSearch/></a>
-                    <a onClick={this.login}>
-                        Sign in
-                    </a>
+                    {   
+                        !this.props.user.projectsArray
+                        ?   <a onClick={this.login}>
+                                Sign in
+                            </a>
+                        :   <NavMenu/>
+                    }
                 </div>
                 <div className='filler-right'></div>
             </div>
@@ -53,4 +57,4 @@ class Nav extends Component {
     }
 }
 
-export default connect(mapStateToProps,null)(Nav);
+export default connect(mapStateToProps, null)(Nav);
