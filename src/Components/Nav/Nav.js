@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FaSearch from 'react-icons/lib/fa/search';
 import './../Splash/Splash.css';
+import { connect } from 'react-redux';
+
+function mapStateToProps( state ){
+    const { user } = state.user;
+    return { user }
+}
 
 class Nav extends Component {
     constructor(){
@@ -47,4 +53,4 @@ class Nav extends Component {
     }
 }
 
-export default Nav;
+export default connect(mapStateToProps,null)(Nav);

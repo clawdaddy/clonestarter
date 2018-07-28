@@ -185,6 +185,7 @@ export default function reducer(state = initialState, action) {
         end_date_time: fundingEndDate,
         funding_goal: fundingGoal
       } = action.payload;
+      // change picture/title on user object if they change during editing.
       return Object.assign({}, state, {
         projectId:projectId || 0,
         category: category || '',

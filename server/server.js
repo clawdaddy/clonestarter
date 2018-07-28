@@ -6,6 +6,7 @@ const massive = require("massive");
 const session = require("express-session");
 const axios = require("axios");
 const app = express();
+
 const {
   SERVER_PORT,
   DATABASE_CONNECTION,
@@ -49,14 +50,38 @@ app.get("/auth/callback", (req, res, next) => {
   }
   function storeUserInfoInDatabase(userInfoResponse) {
     const { sub, email, name, picture } = userInfoResponse.data;
+    //find user in db
     app
       .get("db")
       .find_user_by_auth_id([sub])
-      .then(response => {
-        if (response.length) {
-          req.session.user = response[0];
-          res.redirect(FRONTEND_URL);
+      .then(user => {
+        if (user.length) {
+          //if there is a user in the database, get projects from db. If there is no results, that means there are no projects, so assign the user an empty array for projects, and send it back. Otherwise, append the array of projects to the user object and send that back.
+          app.get('db')
+          .get_creator_projects([user[0].id])
+          .then( userWithProjects => {
+            if(!userWithProjects.length){
+              user[0].projectsArray = []
+              req.session.user = user[0]
+              console.log('no projects on session', req.session.user)
+              res.redirect(FRONTEND_URL)
+            } else {
+              userWithProjects[0].projectsArray = userWithProjects.map( userWithProject => {
+                return {
+                  projectId: userWithProject.project_id,
+                  projectImage:userWithProject.image,
+                  projectTitle:userWithProject.title
+                }
+              })
+              req.session.user = userWithProjects[0]
+              console.log('returning user on session', req.session.user)
+              res.redirect(FRONTEND_URL)
+            }
+            
+          })
+          
         } else {
+          //create user in db
           app
             .get("db")
             .create_user([sub, email, name, picture])
