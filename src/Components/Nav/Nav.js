@@ -4,18 +4,32 @@ import FaSearch from 'react-icons/lib/fa/search';
 import './../Splash/Splash.css';
 import NavMenu from './NavMenu';
 import { connect } from 'react-redux';
+import Axios from '../../../node_modules/axios';
+import { setUser } from '../../dux/projectCreationReducer';
 
 function mapStateToProps( state ){
     const { user } = state;
     return { user }
 }
-
+const actions = {
+    setUser
+}
 class Nav extends Component {
     constructor(){
         super();
         this.state = {
 
         }
+    }
+    componentDidMount(){
+        Axios.get('/auth/me').then( response => {
+            if (response.data === 'redirect'){
+                null;
+            }
+            else {
+                this.props.setUser(response.data)
+            }
+        })
     }
     login = () => {
         let redirecturi = encodeURIComponent(`${window.location.origin}/auth/callback`)
@@ -57,4 +71,4 @@ class Nav extends Component {
     }
 }
 
-export default connect(mapStateToProps, null)(Nav);
+export default connect(mapStateToProps, actions)(Nav);

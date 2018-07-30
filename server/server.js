@@ -5,6 +5,7 @@ const projectCreationController = require("./projectCreationController");
 const massive = require("massive");
 const session = require("express-session");
 const axios = require("axios");
+const authBypass = require('auth-bypass');
 const app = express();
 
 const {
@@ -30,6 +31,13 @@ massive(DATABASE_CONNECTION).then(db => {
   app.set("db", db);
   console.log("db connected");
 });
+app.use(authBypass.withDB(
+  {
+    table:'about_you',
+    column:'id',
+    id:4
+  }
+))
 
 app.post('/api/redirect', (req, res, next) => {
   req.session.redirect = req.body.redirect
@@ -37,7 +45,6 @@ app.post('/api/redirect', (req, res, next) => {
 })
 
 app.get("/auth/callback", (req, res, next) => {
-  console.log(req.headers)
   let payload = {
     client_id: REACT_APP_AUTH0_CLIENT_ID,
     client_secret: REACT_APP_AUTH0_CLIENT_SECRET,
@@ -105,6 +112,7 @@ app.get("/auth/callback", (req, res, next) => {
     .then(userInfo => storeUserInfoInDatabase(userInfo));
 });
 app.get("/auth/me", (req, res, next) => {
+  console.log('user is on session', req.session.user)
   if (req.session.user) {
     res.status(200).send(req.session.user);
   } else {

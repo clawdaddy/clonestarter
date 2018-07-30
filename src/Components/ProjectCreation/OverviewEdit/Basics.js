@@ -278,13 +278,25 @@ class Basics extends Component {
       subcategoryOptions
     });
   }
-  uploadWidget = () => {
-    window.cloudinary.openUploadWidget({
-      cloud_name:process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
-      upload_preset:'fj44xkkb',
-      tags:['test']
-    },(err, result) => console.log(result))
+  //the uploadWidget is provided by cloudinary and can upload unsigned documents. I'm keeping it here in case I want to use it in the future, because I know it works. However, I want to try and set up an upload for signed documents.
+  // uploadWidget = () => {
+  //   window.cloudinary.openUploadWidget({
+  //     cloud_name:process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+  //     upload_preset:'fj44xkkb',
+  //     tags:['test']
+  //   },(err, result) => console.log(result))
+  // }
+  handleFile = (e) => {
+    
+    let data = e.dataTransfer.getData('Proxy')
+    console.log('data from drop', data)
+    e.preventDefault();
   }
+  handleDrag =(e) => {
+    console.log('dragover data', e)
+    e.preventDefault();
+  }
+  
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.category !== this.props.category) {
       this.getSubcategories();
@@ -304,7 +316,11 @@ class Basics extends Component {
             <EditSection
               title="Project image"
               inputs={[
-                <button onClick={this.uploadWidget}>Upload photo</button>
+                // <button onClick={this.uploadWidget}>Upload photo</button>,
+                <Dropzone
+                  callbackFn = {this.handleFile}
+                  handleDrag = {this.handleDrag}
+                />
               ]}
               key="project-image"
             />
