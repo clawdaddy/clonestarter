@@ -15,7 +15,9 @@ class ProjectCreation extends Component {
       console.log("creation response", response);
       if (response.data === "redirect") {
         console.log("401!!!");
-        this.props.history.push("/login");
+        axios.post('/api/redirect', {redirect:'/#/projectCreate/setup/1'}).then(
+          this.props.history.push('/login')
+        )
       } else {
         this.props.setUser(response.data);
       }

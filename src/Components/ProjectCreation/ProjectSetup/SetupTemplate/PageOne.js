@@ -3,6 +3,7 @@ import DropdownSelector from './../../ProjectAttribute/DropdownSelector';
 import { selectCategory } from './../../../../dux/projectCreationReducer';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
 function mapStateToProps(state) {
     return {
         category:state.category
@@ -42,6 +43,7 @@ class PageOne extends Component {
                 >
                     Next: Project idea
                 </button>
+               
             </div>
         );
     }

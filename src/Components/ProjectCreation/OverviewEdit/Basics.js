@@ -278,6 +278,13 @@ class Basics extends Component {
       subcategoryOptions
     });
   }
+  uploadWidget = () => {
+    window.cloudinary.openUploadWidget({
+      cloud_name:process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+      upload_preset:'fj44xkkb',
+      tags:['test']
+    },(err, result) => console.log(result))
+  }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.category !== this.props.category) {
       this.getSubcategories();
@@ -296,7 +303,9 @@ class Basics extends Component {
           <div className="overview_section_inputs">
             <EditSection
               title="Project image"
-              inputs={[<p key="image">dropbox goes here</p>]}
+              inputs={[
+                <button onClick={this.uploadWidget}>Upload photo</button>
+              ]}
               key="project-image"
             />
             <EditSection

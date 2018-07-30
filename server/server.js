@@ -31,8 +31,13 @@ massive(DATABASE_CONNECTION).then(db => {
   console.log("db connected");
 });
 
+app.post('/api/redirect', (req, res, next) => {
+  req.session.redirect = req.body.redirect
+  res.sendStatus(200);
+})
+
 app.get("/auth/callback", (req, res, next) => {
-  console.log(req.headers.host)
+  console.log(req.headers)
   let payload = {
     client_id: REACT_APP_AUTH0_CLIENT_ID,
     client_secret: REACT_APP_AUTH0_CLIENT_SECRET,
@@ -65,7 +70,7 @@ app.get("/auth/callback", (req, res, next) => {
               user[0].projectsArray = []
               req.session.user = user[0]
               console.log('no projects on session', req.session.user)
-              res.redirect(FRONTEND_URL)
+              res.redirect(req.session.redirect ?  FRONTEND_URL+req.session.redirect : FRONTEND_URL)
             } else {
               userWithProjects[0].projectsArray = userWithProjects.map( userWithProject => {
                 return {
@@ -76,7 +81,7 @@ app.get("/auth/callback", (req, res, next) => {
               })
               req.session.user = userWithProjects[0]
               console.log('returning user on session', req.session.user)
-              res.redirect(FRONTEND_URL)
+              res.redirect(req.session.redirect ?  FRONTEND_URL+req.session.redirect : FRONTEND_URL)
             }
             
           })
@@ -88,7 +93,7 @@ app.get("/auth/callback", (req, res, next) => {
             .create_user([sub, email, name, picture])
             .then(newUserResponse => {
               req.session.user = newUserResponse[0];
-              res.redirect(FRONTEND_URL);
+              res.redirect(req.session.redirect ?  FRONTEND_URL+req.session.redirect : FRONTEND_URL);
             })
             .catch(err => console.log(err));
         }
