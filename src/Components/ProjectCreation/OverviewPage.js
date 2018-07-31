@@ -24,7 +24,7 @@ class OverviewPage extends Component {
     }
     
     componentDidMount(){
-        if( !this.props.projectId){
+        if( !this.props.projectId || this.props.projectId !== this.props.match.params){
             axios.get(`/api/getProject/${this.props.match.params.id}`).then( result => {
                 this.props.setProjectFromDB(result.data[0])
             })

@@ -174,6 +174,7 @@ export default function reducer(state = initialState, action) {
     case SAVE_SETUP_TYPE:
       return Object.assign({}, state, { projectId: action.payload });
     case SET_PROJECT_FROM_DB:
+      console.log('payload ', action.payload)
       const {
         id: projectId,
         category,

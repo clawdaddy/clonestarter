@@ -318,6 +318,7 @@ class Basics extends Component {
               inputs={[
                 // <button onClick={this.uploadWidget}>Upload photo</button>,
                 <Dropzone
+                  key='dropfile'
                   callbackFn = {this.handleFile}
                   handleDrag = {this.handleDrag}
                 />
@@ -403,6 +404,7 @@ class Basics extends Component {
                   <RegularInput
                     value={this.props.projectLocation}
                     callbackFn={this.props.setLocation}
+                    key='location'
                   />
               ]}
             />
@@ -412,6 +414,7 @@ class Basics extends Component {
                 <DateAndTimeSelector
                     value={this.props.fundingEndDate}
                     callbackFn={this.props.setEndDate}
+                    key='dateAndTime'
                 />,
 
               ]}

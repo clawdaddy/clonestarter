@@ -92,6 +92,7 @@ class OverviewEdit extends Component {
       projectId,
       rewards
     } = this.props;
+    console.log('id to server', projectId)
     axios
       .put(`/api/saveProject/${projectId}`, {
         category,
@@ -102,11 +103,12 @@ class OverviewEdit extends Component {
         shortBlurb,
         projectLocation,
         fundingDuration,
-        fundingEndDate,
+        fundingEndDate: fundingEndDate === 'Invalid date' ? null : fundingEndDate,
         fundingGoal,
         rewards
       })
       .then(response => {
+        console.log('response from db ', response)
           this.props.setProjectFromDB(response.data[0])
           this.setState({
               toggleSave:false

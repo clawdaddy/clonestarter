@@ -68,10 +68,10 @@ class NavMenu extends Component {
               links={this.props.user.projectsArray.map(project => {
                 return (
                   <NavMenuProjectLink
-                    title={project.title}
-                    id={project.id}
-                    key={project.id}
-                    projectPhoto={project.image}
+                    title={project.projectTitle}
+                    id={project.projectId}
+                    key={project.projectId}
+                    projectPhoto={project.projectImage}
                   />
                 );
               })}
