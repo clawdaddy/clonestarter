@@ -170,7 +170,7 @@ app.post("/api/addProject", projectCreationController.addProject);
 app.get("/api/getAllProjects", projectCreationController.getAllProjects);
 app.get("/api/getProject/:projectId", projectCreationController.getProject);
 app.put("/api/saveProject/:projectId", projectCreationController.saveProject);
-
+app.get('/api/getCurrentProject', (req, res, next) => res.status(200).send(req.session.currentProject))
 app.listen(SERVER_PORT, () =>
   console.log(`Kicking things off on port ${SERVER_PORT}`)
 );

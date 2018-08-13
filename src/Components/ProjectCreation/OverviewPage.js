@@ -50,7 +50,6 @@ class OverviewPage extends Component {
 
             this.makeOverviewTracker()
             // console.log((prevProps.category !== category) )
-            console.log(prevProps.category, category)
             
         }
         

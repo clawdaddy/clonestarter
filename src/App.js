@@ -8,6 +8,7 @@ import ProjectCreation from "./Components/ProjectCreation";
 import { Provider } from "react-redux";
 import store from "./dux/store";
 import { CloudinaryContext } from "cloudinary-react";
+import Category from "./Components/Category";
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
                   <Route exact path="/" component={Splash} />
                   <Route path="/projectCreate" component={ProjectCreation} />
                   <Route path="/login" component={Login} />
+                  <Route path="/category/:category" component={Category}/>
                 </Switch>
               </div>
             </HashRouter>

@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import axios from 'axios';
 import './Nav.css';
 import { setUser } from '../../dux/projectCreationReducer';
+import onClickOutside from 'react-onclickoutside';
 {
   /* the image below will be whatever picture the user has uploaded as their picture. For now, I'll try and use the one that the auth gets off of Google. When the user clicks on the picture, it will open up the NavMenu. The NavMenu contains the name of the user, 3 menu sections (my stuff, settings, and my projects), and a log out button. I'll need information from the database about the projects, so I'll make sure to grab that when the user logs in. I don't know how much of each section I'll do, but this is a good start. */
 }
@@ -35,6 +36,14 @@ class NavMenu extends Component {
             this.props.setUser({});
             
         })
+    }
+
+    handleClickOutside = ( event ) => {
+      this.setState((prevState) =>{
+        return {
+            menuOpen:false
+        }
+    })
     }
   render() {
     return (
@@ -89,4 +98,4 @@ class NavMenu extends Component {
 export default connect(
   mapStateToProps,
   actions
-)(NavMenu);
+)(onClickOutside(NavMenu));

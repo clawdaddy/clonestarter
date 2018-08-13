@@ -9,7 +9,7 @@ import Account from "./OverviewEdit/Account";
 import EditNav from "./OverviewEdit/EditNav";
 import Preview from "./OverviewEdit/Preview";
 import SaveProject from "./OverviewEdit/SaveProject";
-import axios from "axios";
+import axios from "axios"; 
 import { connect } from "react-redux";
 import { setProjectFromDB } from "../../dux/projectCreationReducer";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -56,6 +56,13 @@ class OverviewEdit extends Component {
     this.state = {
       toggleSave: false
     };
+  }
+  componentDidMount(){
+    if(!this.props.projectId){
+      axios.get('/api/getCurrentProject').then( response => {
+        
+      })
+    }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (

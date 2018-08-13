@@ -50,7 +50,7 @@ class Nav extends Component {
             Start <span className="nav-hide">a project</span>
           </Link>
         </div>
-        <h1 className="logo">CLONESTARTER</h1>
+        <Link to='/' className='logo-link'><h1 className="logo">CLONESTARTER</h1></Link>
         <div className="filler-mid" />
         <div className="right-nav">
           <a className="nav-hide">

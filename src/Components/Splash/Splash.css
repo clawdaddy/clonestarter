@@ -54,9 +54,11 @@ p{
 .left-nav >a {
     padding-right:15px;
 }
-.logo{
+.logo-link{
     grid-area:logo;
     justify-self: center;
+}
+.logo{
     font-size:26px;
     font-family: rnsBarutaBlack, sans-serif;
     color:#1C4650;
