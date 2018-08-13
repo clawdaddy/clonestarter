@@ -1,0 +1,15 @@
+.character_limit{
+    position: relative;
+}
+
+.limit_input{
+    width:100%;
+    line-height: 2em;
+    padding-right:60px;
+    box-sizing: border-box;
+}
+.counter{
+    position: absolute;
+    top:10px;
+    right:10px;
+}

@@ -13,16 +13,16 @@ function FeaturedProject(props){
     return(
         <div className='featured-image-container'>
             <p className='featured-project-head'>FEATURED PROJECT</p>
-            <div>
+            <a>
                 <ImageBox
                     featured = {featured}
                 />
                 <div className='featured-text'>
-                    <p>{featured.title}</p>
+                    <p>{featured.title} </p>
                     <p>BY {featured.creator.toUpperCase()}</p>
                     <p>{featured.funded.toUpperCase()}</p>
                 </div>
-            </div>
+            </a>
             
         </div>
     )
