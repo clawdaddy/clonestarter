@@ -59,6 +59,7 @@ class Basics extends Component {
     this.state = {
       subcategoryOptions: [""]
     };
+    // this.fileInput = React.createRef()
   }
   componentDidMount() {
     if(!this.props.subcategory){
@@ -286,15 +287,24 @@ class Basics extends Component {
   //     tags:['test']
   //   },(err, result) => console.log(result))
   // }
-  handleFile = (e) => {
-    
-    let data = e.dataTransfer.getData('Proxy')
-    console.log('data from drop', data)
+  handleFileDrop = (e) => {
     e.preventDefault();
+    console.log('file event: ', e)
+    console.log('data transfer: ', e.dataTransfer)
+    // let data = e.dataTransfer.getData('Proxy')
+    // console.log('data from drop', data)
+    
+  };
+  handleFileInput = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    console.log('file input event: ', e)
   }
   handleDrag =(e) => {
     console.log('dragover data', e)
     e.preventDefault();
+    e.stopPropagation();
   }
   
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -319,8 +329,9 @@ class Basics extends Component {
                 // <button onClick={this.uploadWidget}>Upload photo</button>,
                 <Dropzone
                   key='dropfile'
-                  callbackFn = {this.handleFile}
+                  handleDrop = {this.handleFileDrop}
                   handleDrag = {this.handleDrag}
+                  handleFileInput = {this.handleFileInput}
                 />
               ]}
               key="project-image"

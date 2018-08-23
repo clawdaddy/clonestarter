@@ -7,6 +7,7 @@ const session = require("express-session");
 const axios = require("axios");
 const authBypass = require("auth-bypass");
 const app = express();
+const cloudinary = require("cloudinary")
 
 const {
   SERVER_PORT,
@@ -16,10 +17,20 @@ const {
   REACT_APP_AUTH0_CLIENT_SECRET,
   REACT_APP_AUTH0_DOMAIN,
   REDIRECT_PROTOCOL,
-  FRONTEND_URL
+  FRONTEND_URL,
+  REACT_APP_CLOUDINARY_API_KEY,
+  REACT_APP_CLOUDINARY_API_SECRET,
+  REACT_APP_CLOUDINARY_CLOUD_NAME,
+  REACT_APP_CLOUDINARY_URL
 } = process.env;
 
-app.use(bodyParser.json());
+cloudinary.config({
+  cloud_name:REACT_APP_CLOUDINARY_CLOUD_NAME,
+  api_key:REACT_APP_CLOUDINARY_API_KEY,
+  api_secret:REACT_APP_CLOUDINARY_API_SECRET
+})
+
+app.use(bodyParser.json({limit: '50mb'}))
 app.use(
   session({
     resave: false,
@@ -148,6 +159,8 @@ app.get("/auth/callback", (req, res, next) => {
     .then(accessToken => tradeAccessTokenForUserInfo(accessToken))
     .then(userInfo => storeUserInfoInDatabase(userInfo));
 });
+
+
 app.get("/auth/me", (req, res, next) => {
   console.log("user is on session", req.session.user);
   if (req.session.user) {
@@ -171,6 +184,24 @@ app.get("/api/getAllProjects", projectCreationController.getAllProjects);
 app.get("/api/getProject/:projectId", projectCreationController.getProject);
 app.put("/api/saveProject/:projectId", projectCreationController.saveProject);
 app.get('/api/getCurrentProject', (req, res, next) => res.status(200).send(req.session.currentProject))
+app.post("/api/savePicture", (req, res, next) => {
+  console.log(req.body)
+  let options = {
+    resource_type:"auto",
+    tags:['main_pic']
+  }
+  cloudinary.v2.uploader.upload(req.body.payload, options, (err,result) => {
+    console.log('result:', result)
+    req.app.get('db')
+    .save_picture([])
+    .then( response => {
+      
+    })
+  } 
+)
+
+  
+})
 app.listen(SERVER_PORT, () =>
   console.log(`Kicking things off on port ${SERVER_PORT}`)
 );

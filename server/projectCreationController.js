@@ -61,5 +61,5 @@ module.exports = {
       .then( response => {
           res.status(200).send(response);
         })
-    }
+    },
 }
