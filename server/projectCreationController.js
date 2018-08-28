@@ -31,12 +31,12 @@ module.exports = {
       });
   },
   getMyProjects: ( req, res, next ) => {
-    const { id } = req.session;
+    const { id } = req.session.user;
     req.app
       .get("db")
       .get_creator_projects([id])
       .then( result => {
-        result[0].projectsArray = dbResponse.map(userWithProject => {
+        result[0].projectsArray = result.map(userWithProject => {
           return {
             projectId: userWithProject.project_id,
             projectImage: userWithProject.image,
@@ -44,9 +44,11 @@ module.exports = {
           };
         }
         )
-        res.status(200).send(result)
+        req.session.user = result[0]
+        console.log('get my projects result', result)
+        res.status(200).send(req.session.user)
       })
-      .catch( err => console.error(err))
+      .catch( err => console.error('error getting my projects',err))
   },
   saveProject: (req, res, next) => {
     const {

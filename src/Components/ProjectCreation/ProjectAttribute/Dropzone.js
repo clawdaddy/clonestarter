@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Dropzone.css';
 import axios from 'axios';
+import { Image, Transformation } from 'cloudinary-react';
 
 class Dropzone extends Component {
     constructor(props) {
@@ -40,7 +41,10 @@ class Dropzone extends Component {
                 ref={this.fileInput}
             />
             { 
-                this.props.preview && <img src={this.props.preview}/> 
+                this.props.preview && 
+                <Image publicId={this.props.preview}> 
+                    <Transformation height='500' width='500' crop="fill"/>
+                </Image>
             }
             </div>
         );

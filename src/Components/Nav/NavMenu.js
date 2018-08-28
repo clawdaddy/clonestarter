@@ -26,15 +26,31 @@ class NavMenu extends Component {
     }
     componentDidMount(){
       axios.get("/api/myProjects").then( response => {
-        setUser(response.data)
+        this.props.setUser(response.data)
       })
     }
+    // componentDidUpdate(prevProps, prevState, snapshot){
+    //   if(prevProps.user.id)
+    // }
     toggleMenu = () => {
-        this.setState((prevState) =>{
+      if(!this.state.menuOpen){
+        axios.get("/api/myProjects").then( response => {
+          this.props.setUser(response.data)
+          this.setState((prevState) =>{
             return {
                 menuOpen:!prevState.menuOpen
             }
+          })
         })
+      }
+      else {
+        this.setState((prevState) =>{
+          return {
+              menuOpen:!prevState.menuOpen
+          }
+      })
+      }
+        
     }
     logout = () => {
         axios.get('/auth/logout').then( response => {

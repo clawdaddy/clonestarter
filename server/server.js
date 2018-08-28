@@ -198,7 +198,7 @@ app.post("/api/savePicture", (req, res, next) => {
     else{
       console.log('result:', result)
       req.app.get('db')
-        .save_picture([result.secure_url, req.body.id])
+        .save_picture([result.public_id, req.body.id])
         .then( response => {
           res.status(200).send(response[0])
         })
