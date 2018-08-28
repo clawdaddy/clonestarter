@@ -1,3 +1,11 @@
+h1{
+    font-weight: 400;
+    font-size: 34px;
+}
+h2{
+    font-size:22px;
+    font-weight: 100;
+}
 input{
     border: 1px solid #DDDEDD;
     font-size:16px;

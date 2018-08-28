@@ -57,13 +57,13 @@ class OverviewEdit extends Component {
       toggleSave: false
     };
   }
-  componentDidMount(){
-    if(!this.props.projectId){
-      axios.get('/api/getCurrentProject').then( response => {
-        
-      })
-    }
-  }
+  // componentDidMount(){
+  //   if(!this.props.projectId){
+  //     axios.get('/api/getCurrentProject').then( response => {
+  //       this.props.setProjectFromDB(response.data[0])
+  //     })
+  //   }
+  // }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (
       prevProps.category !== this.props.category ||

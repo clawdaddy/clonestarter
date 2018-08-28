@@ -15,7 +15,8 @@ import {
   selectSubcategory,
   setGoal,
   setEndDate,
-  setLocation
+  setLocation,
+  setImage
 } from "./../../../dux/projectCreationReducer";
 import "../OverviewEdit.css";
 
@@ -29,7 +30,8 @@ function mapStateToProps(state) {
     fundingGoal,
     shortBlurb,
     projectTitle,
-    projectImage
+    projectImage,
+    projectId
   } = state;
   return {
     category,
@@ -40,7 +42,8 @@ function mapStateToProps(state) {
     fundingGoal,
     shortBlurb,
     projectTitle,
-    projectImage
+    projectImage,
+    projectId
   };
 }
 const actions = {
@@ -50,7 +53,8 @@ const actions = {
   selectSubcategory,
   setGoal,
   setEndDate,
-  setLocation
+  setLocation,
+  setImage
 };
 
 class Basics extends Component {
@@ -295,6 +299,9 @@ class Basics extends Component {
     // console.log('data from drop', data)
     
   };
+  saveImage = ( image ) => {
+    this.props.setImage( image )
+  }
   handleFileInput = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -317,10 +324,10 @@ class Basics extends Component {
     return (
       <div className="overview_edit_container">
         <h1>Let's get started.</h1>
-        <p>
+        <h2>
           Make a great first impression with your project’s title and image, and
           set your funding goal, campaign duration, and project category.
-        </p>
+        </h2>
         <div className="overview_edit_section">
           <div className="overview_section_inputs">
             <EditSection
@@ -332,6 +339,9 @@ class Basics extends Component {
                   handleDrop = {this.handleFileDrop}
                   handleDrag = {this.handleDrag}
                   handleFileInput = {this.handleFileInput}
+                  projectId = {this.props.projectId}
+                  preview = {this.props.projectImage}
+                  saveImage={this.saveImage}
                 />
               ]}
               key="project-image"

@@ -181,22 +181,33 @@ app.get("/auth/logout", (req, res, next) => {
 
 app.post("/api/addProject", projectCreationController.addProject);
 app.get("/api/getAllProjects", projectCreationController.getAllProjects);
+app.get("/api/myProjects", projectCreationController.getMyProjects)
 app.get("/api/getProject/:projectId", projectCreationController.getProject);
 app.put("/api/saveProject/:projectId", projectCreationController.saveProject);
 app.get('/api/getCurrentProject', (req, res, next) => res.status(200).send(req.session.currentProject))
 app.post("/api/savePicture", (req, res, next) => {
-  console.log(req.body)
   let options = {
     resource_type:"auto",
     tags:['main_pic']
   }
   cloudinary.v2.uploader.upload(req.body.payload, options, (err,result) => {
-    console.log('result:', result)
-    req.app.get('db')
-    .save_picture([])
-    .then( response => {
-      
-    })
+    if(err) {
+      console.log('error: ', err)
+      res.sendStatus(500)
+    }
+    else{
+      console.log('result:', result)
+      req.app.get('db')
+        .save_picture([result.secure_url, req.body.id])
+        .then( response => {
+          res.status(200).send(response[0])
+        })
+        .catch((err) => {
+          console.log('save image to db error: ', err)
+          res.sendStatus(500)
+        })
+    }
+    
   } 
 )
 

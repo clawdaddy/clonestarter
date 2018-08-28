@@ -14,9 +14,10 @@ class Dropzone extends Component {
         let reader = new FileReader();
         reader.onload = e => {
             console.log(e.target.result)
-            let payload = {payload:e.target.result}
+            let payload = {payload:e.target.result, id:this.props.projectId}
             axios.post(`/api/savePicture`, payload).then( response => {
                 console.log(response)
+                this.props.saveImage(response.data.image)
             })
         }
         reader.readAsDataURL(file)
@@ -24,6 +25,7 @@ class Dropzone extends Component {
     render() {
         console.log('file input ref: ', this.fileInput)
         return (
+            <div>
             <input onDrop={(e) => {
                 console.log('hit div')
                 this.props.handleDrop(e)}
@@ -36,9 +38,11 @@ class Dropzone extends Component {
                 type='file'
                 onChange={(e) => this.handleFile(e)}
                 ref={this.fileInput}
-                />
-                // {/* <input type='file' onChange={(e) => this.props.callbackFn(e.target.value)}/> */}
-            
+            />
+            { 
+                this.props.preview && <img src={this.props.preview}/> 
+            }
+            </div>
         );
     }
 }

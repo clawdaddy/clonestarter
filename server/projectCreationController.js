@@ -30,6 +30,24 @@ module.exports = {
         res.status(200).send(result);
       });
   },
+  getMyProjects: ( req, res, next ) => {
+    const { id } = req.session;
+    req.app
+      .get("db")
+      .get_creator_projects([id])
+      .then( result => {
+        result[0].projectsArray = dbResponse.map(userWithProject => {
+          return {
+            projectId: userWithProject.project_id,
+            projectImage: userWithProject.image,
+            projectTitle: userWithProject.title
+          };
+        }
+        )
+        res.status(200).send(result)
+      })
+      .catch( err => console.error(err))
+  },
   saveProject: (req, res, next) => {
     const {
       category,

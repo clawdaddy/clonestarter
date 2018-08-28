@@ -12,7 +12,7 @@ import onClickOutside from 'react-onclickoutside';
 }
 function mapStateToProps(state) {
     const { user } = state
-  return { user}
+  return { user }
 }
 const actions = {
     setUser
@@ -23,6 +23,11 @@ class NavMenu extends Component {
         this.state = {
             menuOpen:false
         }
+    }
+    componentDidMount(){
+      axios.get("/api/myProjects").then( response => {
+        setUser(response.data)
+      })
     }
     toggleMenu = () => {
         this.setState((prevState) =>{
@@ -81,6 +86,7 @@ class NavMenu extends Component {
                     id={project.projectId}
                     key={project.projectId}
                     projectPhoto={project.projectImage}
+                    onClick={this.toggleMenu}
                   />
                 );
               })}

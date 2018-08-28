@@ -42,6 +42,7 @@ const SET_PROJECT_FROM_DB = "SET_PROJECT_FROM_DB";
 const SET_USER = "SET_USER";
 const SET_END_DATE = "SET_END_DATE";
 const SET_LOCATION = 'SET_LOCATION';
+const SET_IMAGE = 'SET_IMAGE';
 
 export function selectCategory(category) {
   return {
@@ -146,6 +147,12 @@ export function setLocation( location ){
         payload:location
     }
 }
+export function setImage( image ){
+  return{
+    type:SET_IMAGE,
+    payload:image
+  }
+}
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -193,7 +200,7 @@ export default function reducer(state = initialState, action) {
         category: category || '',
         shortBlurb: shortBlurb || '',
         country: country || '',
-        image: image || '',
+        projectImage: image || '',
         projectTitle: projectTitle || '',
         subcategory: subcategory || '',
         projectLocation: projectLocation || '',
@@ -210,6 +217,8 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, { fundingEndDate: action.payload })
     case SET_LOCATION:
       return Object.assign({}, state, { projectLocation: action.payload })
+    case SET_IMAGE:
+      return Object.assign({}, state, { projectImage: action.payload })
     default:
       return state;
   }
