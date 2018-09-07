@@ -185,6 +185,26 @@ app.get("/api/myProjects", projectCreationController.getMyProjects)
 app.get("/api/getProject/:projectId", projectCreationController.getProject);
 app.put("/api/saveProject/:projectId", projectCreationController.saveProject);
 app.get('/api/getCurrentProject', (req, res, next) => res.status(200).send(req.session.currentProject))
+
+app.route(`/api/reward`)
+  .get(projectCreationController.getRewardsByProject)
+  .post(projectCreationController.createNewReward)
+
+app.route(`/api/reward/:projectId`)
+  .get(projectCreationController.getOneReward)
+  .put(projectCreationController.editReward)
+  .delete(projectCreationController.deleteReward)
+
+app.route(`/api/reward/item`)
+  .post(projectCreationController.createNewRewardItem)
+  .get(projectCreationController.getRewardItems)
+
+app.route(`/api/reward/item/:itemId`)
+  .get(projectCreationController.getOneRewardItem)
+  .put(projectCreationController.editRewardItem)
+  .delete(projectCreationController.deleteRewardItem)
+
+
 app.post("/api/savePicture", (req, res, next) => {
   let options = {
     resource_type:"auto",

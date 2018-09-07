@@ -82,4 +82,49 @@ module.exports = {
           res.status(200).send(response);
         })
     },
+    createNewReward: ( req, res, next ) => {
+      req.app
+        .get('db')
+        .Rewards
+        .create_new_reward([])
+        .then( dbResponse => {
+          console.log('create new reward response: ', dbResponse)
+           req.app
+            .get('db')
+            .rewardItems
+            .create_new_reward_item([])
+            .then( itemResponse => {
+              console.log('create new item response: ', itemResponse)
+            })
+
+        })
+
+    },
+    getRewardsByProject:( req, res, next ) => {
+
+    },
+    getOneReward:( req, res, next ) => {
+
+    }, 
+    editReward:( req, res, next ) => {
+
+    },
+    deleteReward:( req, res, next ) => {
+
+    },
+    createNewRewardItem: ( req, res, next ) => {
+
+    },
+    getRewardItems: ( req, res, next ) => {
+
+    },
+    getOneRewardItem: (req, res, next ) => {
+
+    },
+    editRewardItem: ( req, res, next ) => {
+
+    },
+    deleteRewardItem: (req, res, next) => {
+
+    }
 }

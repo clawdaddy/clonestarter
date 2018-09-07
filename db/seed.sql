@@ -27,7 +27,11 @@ CREATE TABLE IF NOT EXISTS rewards(
     pledge_amount float,
     description text,
     estimated_delivery date,
-    shipping_details varchar(30)
+    shipping_details varchar(30),
+    reward_limit_enabled boolean,
+    backer_limit integer,
+    reward_limit_end_date DATE,
+    reward_limit_start_date DATE
 );
 CREATE TABLE IF NOT EXISTS project_details(
     id serial primary key,
@@ -58,3 +62,11 @@ CREATE TABLE IF NOT EXISTS project_creators (
     creator_id integer,
     project_id integer
 );
+create table IF NOT EXISTS reward_item
+(
+    id serial primary key,
+    reward_id integer,
+    number integer,
+    digital boolean,
+    name varchar(70)
+)
