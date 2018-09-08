@@ -188,7 +188,7 @@ app.get('/api/getCurrentProject', (req, res, next) => res.status(200).send(req.s
 
 app.route(`/api/reward`)
   .get(projectCreationController.getRewardsByProject)
-  .post(projectCreationController.createNewReward)
+  .post(projectCreationController.createNewReward, projectCreationController.editRewardItem)
 
 app.route(`/api/reward/:projectId`)
   .get(projectCreationController.getOneReward)

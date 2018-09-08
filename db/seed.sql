@@ -68,5 +68,12 @@ create table IF NOT EXISTS reward_item
     reward_id integer,
     number integer,
     digital boolean,
-    name varchar(70)
+    name varchar(70),
+    creator_id integer
+)
+create table if not exists reward_linker_item
+(
+    id serial primary key,
+    reward_id integer,
+    item_id integer
 )

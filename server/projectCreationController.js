@@ -83,20 +83,24 @@ module.exports = {
         })
     },
     createNewReward: ( req, res, next ) => {
+      const { project_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date } = req.body.reward
       req.app
         .get('db')
-        .Rewards
-        .create_new_reward([])
+        .rewards
+        .create_new_reward([project_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date])
         .then( dbResponse => {
           console.log('create new reward response: ', dbResponse)
-           req.app
-            .get('db')
-            .rewardItems
-            .create_new_reward_item([])
-            .then( itemResponse => {
-              console.log('create new item response: ', itemResponse)
-            })
-
+          if(req.body.items){
+            req.rewardId = dbResponse[0].id
+            next()
+          }
+          else {
+            res.status(200).send({reward_id:dbResponse[0].id})
+          }
+        })
+        .catch( err => {
+          console.log('new reward response error: ', err)
+          res.status(500)
         })
 
     },
@@ -113,7 +117,19 @@ module.exports = {
 
     },
     createNewRewardItem: ( req, res, next ) => {
-
+      const { number, digital, name, creator_id } = req.body.item
+      req.app
+      .get('db')
+      .reward_items
+      .create_new_reward_item([number, digital, name, creator_id])
+      .then( itemResponse => {
+        console.log('create new item response: ', itemResponse)
+        res.status(200).send({ item_id:itemResponse[0].id })
+      })
+      .catch( err => {
+        console.log('new item response error: ', err)
+        res.status(500)
+      })
     },
     getRewardItems: ( req, res, next ) => {
 
