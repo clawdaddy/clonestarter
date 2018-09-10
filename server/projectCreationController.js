@@ -182,7 +182,18 @@ module.exports = {
 
     },
     deleteReward:( req, res, next ) => {
-
+      const { rewardId } = req.params
+      const db = req.app.get('db')
+      db
+        .rewards
+        .delete_reward([+rewardId])
+        .then( response => {
+          res.status(200).send(response[0])
+        })
+        .catch(err => {
+          console.log('error deleting reward on project: ', err)
+          res.sendStatus(500)
+        })
     },
     createNewRewardItem: ( req, res, next ) => {
       const { digital, name, creator_id } = req.body
@@ -200,8 +211,19 @@ module.exports = {
       })
     },
     getRewardItems: ( req, res, next ) => {
-      
-      res.status(200).send({response:'a response'})
+      //this endpoint is to grab reward items for selection by the creator to add to a reward via the linker. It depends on the creator's id, and not on the reward id
+      const { creatorId } = req.params;
+      const db = req.app.get('db')
+      db
+        .reward_items
+        .get_reward_items([ creatorId ])
+        .then( rewardItems => {
+          res.status(200).send({rewardItems})
+        })
+        .catch( err => {
+          console.log('error getting reward items: ', err)
+          res.sendStatus(500)
+        })
     },
     getOneRewardItem: (req, res, next ) => {
 

@@ -196,12 +196,12 @@ app.get(`/api/reward/:projectId`,projectCreationController.getRewardsByProject)
 app.post(`/api/reward/newReward`, projectCreationController.createNewReward)
 app.get(`/api/reward/getOneReward/:projectId`, projectCreationController.getOneReward)
 app.put(`/api/reward/editReward`, projectCreationController.editReward)
-app.delete(`/api/reward/deleteReward/:projectId`, projectCreationController.deleteReward)
+app.delete(`/api/reward/deleteReward/:rewardId`, projectCreationController.deleteReward)
 
 //reward item endpoints
 
 app.post(`/api/reward/item`,projectCreationController.createNewRewardItem)
-app.get(`/api/reward/item/getItems`, projectCreationController.getRewardItems)
+app.get(`/api/reward/item/getItems/:creatorId`, projectCreationController.getRewardItems)
 app.put(`/api/reward/item/editItem`, projectCreationController.editRewardItem)
 app.get(`/api/reward/item/getItem/:itemId`, projectCreationController.getOneRewardItem)
 
