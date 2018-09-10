@@ -151,12 +151,34 @@ module.exports = {
 
     },
     getRewardsByProject:( req, res, next ) => {
-
+      const { projectId } = req.params;
+      const db = req.app.get('db')
+      db
+        .rewards
+        .get_rewards_by_project([+projectId])
+        .then( projects => {
+          res.status(200).send({projects})
+        })
+        .catch( err => {
+          console.log('get rewards by project error: ', err)
+          res.sendStatus(500)
+        })
     },
     getOneReward:( req, res, next ) => {
 
     }, 
     editReward:( req, res, next ) => {
+      const { reward_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date } = req.body
+      const db = req.app.get('db')
+      db
+        .rewards
+        .edit_reward([+reward_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date])
+        .then( editedReward => {
+          res.status(200).send(editedReward[0])
+        })
+        .catch( err => {
+          console.log('error editing reward: ', err)
+        })
 
     },
     deleteReward:( req, res, next ) => {
@@ -178,7 +200,7 @@ module.exports = {
       })
     },
     getRewardItems: ( req, res, next ) => {
-      console.log('HIT GET REWARD ITEMS', req.body)
+      
       res.status(200).send({response:'a response'})
     },
     getOneRewardItem: (req, res, next ) => {
