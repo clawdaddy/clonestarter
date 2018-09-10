@@ -9,6 +9,7 @@ const authBypass = require("auth-bypass");
 const app = express();
 const cloudinary = require("cloudinary")
 
+
 const {
   SERVER_PORT,
   DATABASE_CONNECTION,
@@ -42,6 +43,7 @@ massive(DATABASE_CONNECTION).then(db => {
   app.set("db", db);
   console.log("db connected");
 });
+//auth bypass for testing
 app.use(
   authBypass.withObject({
     id: 4,
@@ -179,6 +181,8 @@ app.get("/auth/logout", (req, res, next) => {
   });
 });
 
+//project endpoints
+
 app.post("/api/addProject", projectCreationController.addProject);
 app.get("/api/getAllProjects", projectCreationController.getAllProjects);
 app.get("/api/myProjects", projectCreationController.getMyProjects)
@@ -186,24 +190,29 @@ app.get("/api/getProject/:projectId", projectCreationController.getProject);
 app.put("/api/saveProject/:projectId", projectCreationController.saveProject);
 app.get('/api/getCurrentProject', (req, res, next) => res.status(200).send(req.session.currentProject))
 
-app.route(`/api/reward`)
-  .get(projectCreationController.getRewardsByProject)
-  .post(projectCreationController.createNewReward, projectCreationController.editRewardItem)
+//reward endpoints
 
-app.route(`/api/reward/:projectId`)
-  .get(projectCreationController.getOneReward)
-  .put(projectCreationController.editReward)
-  .delete(projectCreationController.deleteReward)
+app.get(`/api/reward`,projectCreationController.getRewardsByProject)
+app.post(`/api/reward/newReward`, projectCreationController.createNewReward)
+app.get(`/api/reward/getOneReward/:projectId`, projectCreationController.getOneReward)
+app.put(`/api/reward/editReward/:projectId`, projectCreationController.editReward)
+app.delete(`/api/reward/deleteReward/:projectId`, projectCreationController.deleteReward)
 
-app.route(`/api/reward/item`)
-  .post(projectCreationController.createNewRewardItem)
-  .get(projectCreationController.getRewardItems)
+//reward item endpoints
 
-app.route(`/api/reward/item/:itemId`)
-  .get(projectCreationController.getOneRewardItem)
-  .put(projectCreationController.editRewardItem)
-  .delete(projectCreationController.deleteRewardItem)
+app.post(`/api/reward/item`,projectCreationController.createNewRewardItem)
+app.get(`/api/reward/item/getItems`, projectCreationController.getRewardItems)
+app.put(`/api/reward/item/editItem`, projectCreationController.editRewardItem)
+app.get(`/api/reward/item/getItem/:itemId`, projectCreationController.getOneRewardItem)
 
+//reward item linker endpoints
+
+app.post(`/api/reward/item/addItemsToReward`, projectCreationController.addItemsToReward)
+app.put(`/api/reward/item/editItemOnReward`, projectCreationController.editItemOnReward)
+app.get(`/api/reward/item/getItemOnReward`, projectCreationController.getItemOnReward)
+app.delete(`/api/reward/item/deleteItemOnReward/:itemLinkerId`, projectCreationController.deleteItemOnReward)
+
+//cloudinary save picture
 
 app.post("/api/savePicture", (req, res, next) => {
   let options = {
@@ -212,7 +221,7 @@ app.post("/api/savePicture", (req, res, next) => {
   }
   cloudinary.v2.uploader.upload(req.body.payload, options, (err,result) => {
     if(err) {
-      console.log('error: ', err)
+      console.log('cloudinary upload error: ', err)
       res.sendStatus(500)
     }
     else{
