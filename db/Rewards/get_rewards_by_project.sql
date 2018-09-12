@@ -1,2 +1,2 @@
-select id as project_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date from rewards
+select id as reward_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date from rewards
 where project_id = $1;

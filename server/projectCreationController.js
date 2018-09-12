@@ -156,8 +156,8 @@ module.exports = {
       db
         .rewards
         .get_rewards_by_project([+projectId])
-        .then( projects => {
-          res.status(200).send({projects})
+        .then( rewards => {
+          res.status(200).send({rewards})
         })
         .catch( err => {
           console.log('get rewards by project error: ', err)
@@ -165,7 +165,18 @@ module.exports = {
         })
     },
     getOneReward:( req, res, next ) => {
-
+      const { rewardId } = req.params;
+      const db = req.app.get('db')
+      db
+        .rewards
+        .get_one_reward([ +rewardId ])
+        .then( reward => {
+          res.status(200).send(reward[0])
+        })
+        .catch( err => {
+          console.log('getting one reward error: ', err)
+          res.sendStatus(500)
+        })
     }, 
     editReward:( req, res, next ) => {
       const { reward_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date } = req.body

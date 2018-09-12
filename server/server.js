@@ -194,7 +194,7 @@ app.get('/api/getCurrentProject', (req, res, next) => res.status(200).send(req.s
 
 app.get(`/api/reward/:projectId`,projectCreationController.getRewardsByProject)
 app.post(`/api/reward/newReward`, projectCreationController.createNewReward)
-app.get(`/api/reward/getOneReward/:projectId`, projectCreationController.getOneReward)
+app.get(`/api/reward/getOneReward/:rewardId`, projectCreationController.getOneReward)
 app.put(`/api/reward/editReward`, projectCreationController.editReward)
 app.delete(`/api/reward/deleteReward/:rewardId`, projectCreationController.deleteReward)
 
