@@ -14,7 +14,7 @@ class Rewards extends Component {
     this.state = {
       rewards:[]
     }
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount(){
     const { projectId } = this.props;
@@ -40,12 +40,56 @@ class Rewards extends Component {
       })
     })
   }
-  handleChange = (name, value, index) => {
-    let newRewards = _.slice(this.state.rewards)
-    newRewards[index][name] = value;
+  addNewRewardToArray = ( reward ) => {
+    const { rewards } = this.state;
+    let newRewards = _.slice(rewards)
+    newRewards.push(reward)
     this.setState({
       rewards:newRewards
     })
+  }
+  addIdFromDBToReward = ( oldReward, newReward ) => {
+    const { rewards } = this.state;
+    // let newRewardWithId = Object.assign({}, newReward, {id:newId})
+    let rewardIndex = rewards.findIndex( reward => reward === oldReward)
+    console.log('reward index: ', rewardIndex)
+    let newRewards = _.slice(rewards)
+    newRewards.splice(rewardIndex,1,newReward)
+    this.setState({
+      rewards:newRewards
+    })
+
+  }
+  removeRewardFromArray = ( oldReward ) => {
+    const { rewards } = this.state;
+    let rewardIndex = rewards.findIndex( reward => reward === oldReward)
+    let newRewards = _.slice(rewards)
+    newRewards.splice(rewardIndex,1)
+    this.setState({
+      rewards:newRewards
+    })
+  }
+  //I was going to try and use this to update values on state for each reward, but decided it would be easier to have each reward manage its own state.
+  // handleChange = (name, value, index) => {
+  //   let newRewards = _.slice(this.state.rewards)
+  //   newRewards[index][name] = value;
+  //   this.setState({
+  //     rewards:newRewards
+  //   })
+  // }
+  
+  createNewRewardTemplate = () => {
+    
+    const newReward = {
+      id:null,
+      pledgeAmount:0,
+      title:'',
+      rewardLimitEnabled:false
+    }
+    // axios.post(`/api/reward/newReward`, newReward).then( response => {
+
+    // })
+    this.addNewRewardToArray(newReward)
   }
   render() {
     return (
@@ -62,7 +106,7 @@ class Rewards extends Component {
                   title={`Reward # ${i+1}`}
                   inputs={[
                     <RewardInputs
-                      handleChangeFn={this.handleChange}
+                      // handleChangeFn={this.handleChange}
                       title={reward.title}
                       pledgeAmount={reward.pledgeAmount}
                       description={reward.description}
@@ -74,6 +118,10 @@ class Rewards extends Component {
                       rewardLimitStartDate={reward.rewardLimitStartDate}
                       key={reward.id}
                       id={reward.id}
+                      currentIndex={i}
+                      addNewRewardToArrayFn={this.addIdFromDBToReward}
+                      reward={reward}
+                      removeRewardFn={this.removeRewardFromArray}
                     />
                   
                   ]}
@@ -81,6 +129,7 @@ class Rewards extends Component {
                 />
               ))
             }
+            <button onClick={this.createNewRewardTemplate}>+ Add a new reward</button>
                 {/* <EditSection title="Reward #" inputs={[<RewardInputs />]} key="Reward"/> */}
             </div>
         </div>

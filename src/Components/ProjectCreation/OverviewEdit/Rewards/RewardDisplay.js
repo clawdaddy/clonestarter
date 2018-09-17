@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import RewardInputs from './RewardInputs';
+import moment from 'moment'
 
 class RewardDisplay extends Component {
     
@@ -14,14 +15,16 @@ class RewardDisplay extends Component {
                 </div>
                 <h4>{this.props.title}</h4>
                 <p>{this.props.description}</p>
+                {/* 
+                I'm postponing items for now because I don't think I'll have time to implement it before I need to show this to people.
                 <p>Includes:</p>
                 <ul>
                     <li>Item1</li>
                     <li>Item2</li>
-                </ul>
+                </ul> */}
                 <p>Estimated Delivery:</p>
-                <p>{this.props.estimatedDelivery}</p>
-                <p>Optional Limited reward thing</p>
+                <p>{moment(this.props.estimatedDelivery).format(`MMM YYYY`)}</p>
+                {/* <p>Optional Limited reward thing</p> */}
                 
             </div>
         );

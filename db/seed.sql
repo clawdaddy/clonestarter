@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS project (
     subcategory varchar(30),
     project_location varchar(50),
     funding_goal integer,
-    end_date DATE
+    end_date DATE,
+    video text
 );
 CREATE TABLE IF NOT EXISTS about_you(
     id serial primary key,
@@ -27,7 +28,7 @@ CREATE TABLE IF NOT EXISTS rewards(
     pledge_amount float,
     description text,
     estimated_delivery date,
-    shipping_details varchar(30),
+    shipping_details varchar(100),
     reward_limit_enabled boolean,
     backer_limit integer,
     reward_limit_end_date DATE,

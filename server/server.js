@@ -235,12 +235,36 @@ app.post("/api/savePicture", (req, res, next) => {
           console.log('save image to db error: ', err)
           res.sendStatus(500)
         })
+      }
+      
+    } 
+  )
+})
+app.post("/api/saveVideo", (req, res, next) => {
+  let options = {
+    resource_type:"auto",
+    tags:['main_video']
+  }
+  cloudinary.v2.uploader.upload(req.body.payload, options, (err,result) => {
+    if(err) {
+      console.log('cloudinary upload error: ', err)
+      res.sendStatus(500)
     }
-    
-  } 
-)
-
-  
+    else{
+      console.log('result:', result, req.body.id)
+      req.app.get('db')
+        .save_video([result.public_id, req.body.id])
+        .then( response => {
+          res.status(200).send(response[0])
+        })
+        .catch((err) => {
+          console.log('save image to db error: ', err)
+          res.sendStatus(500)
+        })
+      }
+      
+    } 
+  )
 })
 app.listen(SERVER_PORT, () =>
   console.log(`Kicking things off on port ${SERVER_PORT}`)

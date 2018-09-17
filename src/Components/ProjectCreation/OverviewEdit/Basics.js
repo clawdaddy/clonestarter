@@ -19,6 +19,9 @@ import {
   setImage
 } from "./../../../dux/projectCreationReducer";
 import "../OverviewEdit.css";
+import axios from 'axios'
+import { Image, Transformation } from 'cloudinary-react';
+
 
 function mapStateToProps(state) {
   const {
@@ -299,14 +302,26 @@ class Basics extends Component {
     // console.log('data from drop', data)
     
   };
-  saveImage = ( image ) => {
-    this.props.setImage( image )
-  }
+  // saveImage = ( image ) => {
+  //   this.props.setImage( image )
+  // }
   handleFileInput = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     console.log('file input event: ', e)
+  }
+  handleFile = file => {
+    let reader = new FileReader();
+    reader.onload = e => {
+      console.log(e.target.result)
+      let payload = {payload:e.target.result, id:this.props.projectId}
+      axios.post(`/api/savePicture`, payload).then( response => {
+          console.log(response)
+          this.props.setImage(response.data.image)
+      })
+  }
+  reader.readAsDataURL(file)
   }
   handleDrag =(e) => {
     console.log('dragover data', e)
@@ -339,10 +354,16 @@ class Basics extends Component {
                   handleDrop = {this.handleFileDrop}
                   handleDrag = {this.handleDrag}
                   handleFileInput = {this.handleFileInput}
+                  handleFileFn = {this.handleFile}
                   projectId = {this.props.projectId}
                   preview = {this.props.projectImage}
                   saveImage={this.saveImage}
-                />
+                  
+                >
+                  <Image publicId={this.props.projectImage}> 
+                    <Transformation height='500' width='500' crop="fill"/>
+                  </Image>
+                </Dropzone>
               ]}
               key="project-image"
             />

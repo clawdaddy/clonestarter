@@ -107,7 +107,7 @@ module.exports = {
       })
     },
     createNewReward: ( req, res, next ) => {
-      const { project_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date } = req.body.reward
+      const { project_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date } = req.body
       let returnItems = [];
       const db = req.app.get('db')
       db
@@ -115,7 +115,7 @@ module.exports = {
         .create_new_reward([project_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date])
         .then( dbResponse => {
           console.log('create new reward response: ', dbResponse)
-          if(req.body.items[0]){
+          if(req.body.items){
             Promise.all(req.body.items.map( item => {
               return db
                 .reward_linker_items
@@ -179,6 +179,7 @@ module.exports = {
         })
     }, 
     editReward:( req, res, next ) => {
+      console.log('edit reward req body: ', req.body)
       const { reward_id, title, pledge_amount, description, estimated_delivery, shipping_details, reward_limit_enabled, backer_limit, reward_limit_end_date, reward_limit_start_date } = req.body
       const db = req.app.get('db')
       db
