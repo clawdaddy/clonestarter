@@ -32,7 +32,7 @@ function mapStateToProps(state) {
     rewards,
     projectDescription,
     risksAndChallenges
-  } = state;
+  } = state.projectCreationReducer;
   return {
     category,
     subcategory,

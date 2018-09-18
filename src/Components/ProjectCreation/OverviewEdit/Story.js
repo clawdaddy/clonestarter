@@ -6,11 +6,12 @@ import Dropzone from "./../ProjectAttribute/Dropzone";
 import { connect } from 'react-redux';
 import { setVideo, setDescription, setRisksAndChallenges } from './../../../dux/projectCreationReducer';
 import { Video, Transformation } from 'cloudinary-react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// I don't have ReactQuill implemented right now, though I'm hoping to implement it later.
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css';
 
 function mapStateToProps( state ){
-    const { projectVideo, projectId, projectDescription, risksAndChallenges } = state
+    const { projectVideo, projectId, projectDescription, risksAndChallenges } = state.projectCreationReducer
     return {
         projectVideo,
         projectId,

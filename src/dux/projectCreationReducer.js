@@ -177,7 +177,7 @@ export function setRisksAndChallenges( risksAndChallenges){
     payload:risksAndChallenges
   }
 }
-export default function reducer(state = initialState, action) {
+export default function projectCreationReducer(state = initialState, action) {
   switch (action.type) {
     case SELECT_CATEGORY:
       return Object.assign({}, state, { category: action.payload });

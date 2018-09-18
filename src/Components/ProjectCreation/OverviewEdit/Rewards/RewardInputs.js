@@ -296,7 +296,7 @@ class RewardInputs extends Component {
   }
 }
 function mapStateToProps( state ){
-  const { projectId } = state;
+  const { projectId } = state.projectCreationReducer;
   return {
     projectId
   }

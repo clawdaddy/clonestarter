@@ -8,7 +8,7 @@ import axios from "../../../node_modules/axios";
 import { setUser } from "../../dux/projectCreationReducer";
 
 function mapStateToProps(state) {
-  const { user } = state;
+  const { user } = state.projectCreationReducer;
   return { user };
 }
 const actions = {

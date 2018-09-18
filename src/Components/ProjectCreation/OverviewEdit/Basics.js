@@ -35,7 +35,7 @@ function mapStateToProps(state) {
     projectTitle,
     projectImage,
     projectId
-  } = state;
+  } = state.projectCreationReducer;
   return {
     category,
     subcategory,
