@@ -15,9 +15,13 @@ import {
   selectSubcategory,
   setGoal,
   setEndDate,
-  setLocation
+  setLocation,
+  setImage
 } from "./../../../dux/projectCreationReducer";
 import "../OverviewEdit.css";
+import axios from 'axios'
+import { Image, Transformation } from 'cloudinary-react';
+
 
 function mapStateToProps(state) {
   const {
@@ -29,7 +33,8 @@ function mapStateToProps(state) {
     fundingGoal,
     shortBlurb,
     projectTitle,
-    projectImage
+    projectImage,
+    projectId
   } = state;
   return {
     category,
@@ -40,7 +45,8 @@ function mapStateToProps(state) {
     fundingGoal,
     shortBlurb,
     projectTitle,
-    projectImage
+    projectImage,
+    projectId
   };
 }
 const actions = {
@@ -50,7 +56,8 @@ const actions = {
   selectSubcategory,
   setGoal,
   setEndDate,
-  setLocation
+  setLocation,
+  setImage
 };
 
 class Basics extends Component {
@@ -59,6 +66,7 @@ class Basics extends Component {
     this.state = {
       subcategoryOptions: [""]
     };
+    // this.fileInput = React.createRef()
   }
   componentDidMount() {
     if(!this.props.subcategory){
@@ -286,15 +294,39 @@ class Basics extends Component {
   //     tags:['test']
   //   },(err, result) => console.log(result))
   // }
-  handleFile = (e) => {
-    
-    let data = e.dataTransfer.getData('Proxy')
-    console.log('data from drop', data)
+  handleFileDrop = (e) => {
     e.preventDefault();
+    console.log('file event: ', e)
+    console.log('data transfer: ', e.dataTransfer)
+    // let data = e.dataTransfer.getData('Proxy')
+    // console.log('data from drop', data)
+    
+  };
+  // saveImage = ( image ) => {
+  //   this.props.setImage( image )
+  // }
+  handleFileInput = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    console.log('file input event: ', e)
+  }
+  handleFile = file => {
+    let reader = new FileReader();
+    reader.onload = e => {
+      console.log(e.target.result)
+      let payload = {payload:e.target.result, id:this.props.projectId}
+      axios.post(`/api/savePicture`, payload).then( response => {
+          console.log(response)
+          this.props.setImage(response.data.image)
+      })
+  }
+  reader.readAsDataURL(file)
   }
   handleDrag =(e) => {
     console.log('dragover data', e)
     e.preventDefault();
+    e.stopPropagation();
   }
   
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -307,10 +339,10 @@ class Basics extends Component {
     return (
       <div className="overview_edit_container">
         <h1>Let's get started.</h1>
-        <p>
+        <h2>
           Make a great first impression with your project’s title and image, and
           set your funding goal, campaign duration, and project category.
-        </p>
+        </h2>
         <div className="overview_edit_section">
           <div className="overview_section_inputs">
             <EditSection
@@ -319,9 +351,19 @@ class Basics extends Component {
                 // <button onClick={this.uploadWidget}>Upload photo</button>,
                 <Dropzone
                   key='dropfile'
-                  callbackFn = {this.handleFile}
+                  handleDrop = {this.handleFileDrop}
                   handleDrag = {this.handleDrag}
-                />
+                  handleFileInput = {this.handleFileInput}
+                  handleFileFn = {this.handleFile}
+                  projectId = {this.props.projectId}
+                  preview = {this.props.projectImage}
+                  saveImage={this.saveImage}
+                  
+                >
+                  <Image publicId={this.props.projectImage}> 
+                    <Transformation height='500' width='500' crop="fill"/>
+                  </Image>
+                </Dropzone>
               ]}
               key="project-image"
             />

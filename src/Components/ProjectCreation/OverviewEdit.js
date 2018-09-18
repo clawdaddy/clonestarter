@@ -29,7 +29,9 @@ function mapStateToProps(state) {
     fundingEndDate,
     fundingGoal,
     projectId,
-    rewards
+    rewards,
+    projectDescription,
+    risksAndChallenges
   } = state;
   return {
     category,
@@ -43,7 +45,9 @@ function mapStateToProps(state) {
     fundingEndDate,
     fundingGoal,
     projectId,
-    rewards
+    rewards,
+    projectDescription,
+    risksAndChallenges
   };
 }
 const actions = {
@@ -57,13 +61,13 @@ class OverviewEdit extends Component {
       toggleSave: false
     };
   }
-  componentDidMount(){
-    if(!this.props.projectId){
-      axios.get('/api/getCurrentProject').then( response => {
-        
-      })
-    }
-  }
+  // componentDidMount(){
+  //   if(!this.props.projectId){
+  //     axios.get('/api/getCurrentProject').then( response => {
+  //       this.props.setProjectFromDB(response.data[0])
+  //     })
+  //   }
+  // }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (
       prevProps.category !== this.props.category ||
@@ -77,7 +81,10 @@ class OverviewEdit extends Component {
       prevProps.fundingEndDate !== this.props.fundingEndDate ||
       prevProps.fundingGoal !== this.props.fundingGoal ||
       prevProps.projectId !== this.props.projectId ||
-      prevProps.rewards !== this.props.rewards
+      prevProps.rewards !== this.props.rewards ||
+      prevProps.projectDescription !== this.props.projectDescription ||
+      prevProps.projectVideo !== this.props.projectVideo ||
+      prevProps.risksAndChallenges !== this.props.risksAndChallenges
     ) {
       this.setState({
         toggleSave: true
@@ -97,7 +104,10 @@ class OverviewEdit extends Component {
       fundingEndDate,
       fundingGoal,
       projectId,
-      rewards
+      rewards,
+      projectDescription,
+      projectVideo,
+      risksAndChallenges
     } = this.props;
     console.log('id to server', projectId)
     axios
@@ -112,7 +122,10 @@ class OverviewEdit extends Component {
         fundingDuration,
         fundingEndDate: fundingEndDate === 'Invalid date' ? null : fundingEndDate,
         fundingGoal,
-        rewards
+        rewards,
+        projectDescription,
+        projectVideo,
+        risksAndChallenges
       })
       .then(response => {
         console.log('response from db ', response)

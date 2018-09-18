@@ -7,6 +7,8 @@ set category = $2,
     subcategory = $7,
     project_location = $8,
     funding_goal = $9,
-    end_date_time = $10
+    end_date_time = $10,
+    description = $11,
+    risks_and_challenges = $12
 where id=$1
 returning *;

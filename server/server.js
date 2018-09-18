@@ -7,6 +7,8 @@ const session = require("express-session");
 const axios = require("axios");
 const authBypass = require("auth-bypass");
 const app = express();
+const cloudinary = require("cloudinary")
+
 
 const {
   SERVER_PORT,
@@ -16,10 +18,20 @@ const {
   REACT_APP_AUTH0_CLIENT_SECRET,
   REACT_APP_AUTH0_DOMAIN,
   REDIRECT_PROTOCOL,
-  FRONTEND_URL
+  FRONTEND_URL,
+  REACT_APP_CLOUDINARY_API_KEY,
+  REACT_APP_CLOUDINARY_API_SECRET,
+  REACT_APP_CLOUDINARY_CLOUD_NAME,
+  REACT_APP_CLOUDINARY_URL
 } = process.env;
 
-app.use(bodyParser.json());
+cloudinary.config({
+  cloud_name:REACT_APP_CLOUDINARY_CLOUD_NAME,
+  api_key:REACT_APP_CLOUDINARY_API_KEY,
+  api_secret:REACT_APP_CLOUDINARY_API_SECRET
+})
+
+app.use(bodyParser.json({limit: '50mb'}))
 app.use(
   session({
     resave: false,
@@ -31,6 +43,7 @@ massive(DATABASE_CONNECTION).then(db => {
   app.set("db", db);
   console.log("db connected");
 });
+//auth bypass for testing
 app.use(
   authBypass.withObject({
     id: 4,
@@ -148,6 +161,8 @@ app.get("/auth/callback", (req, res, next) => {
     .then(accessToken => tradeAccessTokenForUserInfo(accessToken))
     .then(userInfo => storeUserInfoInDatabase(userInfo));
 });
+
+
 app.get("/auth/me", (req, res, next) => {
   console.log("user is on session", req.session.user);
   if (req.session.user) {
@@ -166,11 +181,91 @@ app.get("/auth/logout", (req, res, next) => {
   });
 });
 
+//project endpoints
+
 app.post("/api/addProject", projectCreationController.addProject);
 app.get("/api/getAllProjects", projectCreationController.getAllProjects);
+app.get("/api/myProjects", projectCreationController.getMyProjects)
 app.get("/api/getProject/:projectId", projectCreationController.getProject);
 app.put("/api/saveProject/:projectId", projectCreationController.saveProject);
 app.get('/api/getCurrentProject', (req, res, next) => res.status(200).send(req.session.currentProject))
+
+//reward endpoints
+
+app.get(`/api/reward/:projectId`,projectCreationController.getRewardsByProject)
+app.post(`/api/reward/newReward`, projectCreationController.createNewReward)
+app.get(`/api/reward/getOneReward/:rewardId`, projectCreationController.getOneReward)
+app.put(`/api/reward/editReward`, projectCreationController.editReward)
+app.delete(`/api/reward/deleteReward/:rewardId`, projectCreationController.deleteReward)
+
+//reward item endpoints
+
+app.post(`/api/reward/item`,projectCreationController.createNewRewardItem)
+app.get(`/api/reward/item/getItems/:creatorId`, projectCreationController.getRewardItems)
+app.put(`/api/reward/item/editItem`, projectCreationController.editRewardItem)
+app.get(`/api/reward/item/getItem/:itemId`, projectCreationController.getOneRewardItem)
+
+//reward item linker endpoints
+
+app.post(`/api/reward/item/addItemsToReward`, projectCreationController.addItemsToReward)
+app.put(`/api/reward/item/editItemOnReward`, projectCreationController.editItemOnReward)
+app.get(`/api/reward/item/getItemOnReward`, projectCreationController.getItemOnReward)
+app.delete(`/api/reward/item/deleteItemOnReward/:itemLinkerId`, projectCreationController.deleteItemOnReward)
+
+//cloudinary save picture
+
+app.post("/api/savePicture", (req, res, next) => {
+  let options = {
+    resource_type:"auto",
+    tags:['main_pic']
+  }
+  cloudinary.v2.uploader.upload(req.body.payload, options, (err,result) => {
+    if(err) {
+      console.log('cloudinary upload error: ', err)
+      res.sendStatus(500)
+    }
+    else{
+      console.log('result:', result)
+      req.app.get('db')
+        .save_picture([result.public_id, req.body.id])
+        .then( response => {
+          res.status(200).send(response[0])
+        })
+        .catch((err) => {
+          console.log('save image to db error: ', err)
+          res.sendStatus(500)
+        })
+      }
+      
+    } 
+  )
+})
+app.post("/api/saveVideo", (req, res, next) => {
+  let options = {
+    resource_type:"auto",
+    tags:['main_video']
+  }
+  cloudinary.v2.uploader.upload(req.body.payload, options, (err,result) => {
+    if(err) {
+      console.log('cloudinary upload error: ', err)
+      res.sendStatus(500)
+    }
+    else{
+      console.log('result:', result, req.body.id)
+      req.app.get('db')
+        .save_video([result.public_id, req.body.id])
+        .then( response => {
+          res.status(200).send(response[0])
+        })
+        .catch((err) => {
+          console.log('save image to db error: ', err)
+          res.sendStatus(500)
+        })
+      }
+      
+    } 
+  )
+})
 app.listen(SERVER_PORT, () =>
   console.log(`Kicking things off on port ${SERVER_PORT}`)
 );
