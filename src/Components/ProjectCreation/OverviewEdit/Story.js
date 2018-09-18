@@ -90,8 +90,9 @@ class Story extends Component {
                 // />
                 <textarea
                     placeholder='description'
-                    value={this.props.projectDescription}
+                    value={this.props.projectDescription || ''}
                     onChange={e => this.handleDescription(e.target.value)}
+                    key='description_input'
                 />
 
                 
@@ -119,6 +120,7 @@ class Story extends Component {
                     value={this.props.risksAndChallenges}
                     onChange={e => this.props.setRisksAndChallenges(e.target.value)}
                     placeholder='Risks and Challenges'
+                    key='risks_and_challenges_input'
                 />
               ]}
             />

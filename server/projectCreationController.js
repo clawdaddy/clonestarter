@@ -1,6 +1,18 @@
 const _ = require('lodash');
 
 module.exports = {
+  updateUser: (req, res, next ) => {
+    const { id, profile_photo, your_location, biography, name } = req.body;
+    req.app
+      .get("db")
+      .update_user([id, profile_photo, your_location, biography, name])
+      .then( response => {
+        res.status(200).send(response[0])
+      })
+      .catch( err => {
+        console.log('error updating user: ', err)
+      })
+  },
   addProject: (req, res, next) => {
     const { category, shortBlurb, country } = req.body;
     console.log(category, shortBlurb, country);

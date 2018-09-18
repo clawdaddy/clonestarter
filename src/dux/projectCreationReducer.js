@@ -60,6 +60,7 @@ const SET_PROFILE_LOCATION = 'SET_PROFILE_LOCATION';
 const SET_PROFILE_PHOTO = 'SET_PROFILE_PHOTO';
 
 
+
 export function selectCategory(category) {
   return {
     type: SELECT_CATEGORY,

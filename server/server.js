@@ -202,6 +202,8 @@ app.get("/auth/logout", (req, res, next) => {
   });
 });
 
+app.put(`/api/updateUser`, projectCreationController.updateUser)
+
 //project endpoints
 
 app.post("/api/addProject", projectCreationController.addProject);

@@ -9,20 +9,22 @@ import {
   setProfileName,
   setBiography,
   setProfileLocation,
-  setProfilePhoto
+  setProfilePhoto,
+  setUser
 } from "./../../../dux/projectCreationReducer";
 import SaveProject from "./SaveProject";
 
 function mapStateToProps(state) {
   
-  const { name, biography, your_location, profile_photo } = state.projectCreationReducer.user
+  const { name, biography, your_location, profile_photo, id } = state.projectCreationReducer.user
   const { user } = state.projectCreationReducer
   return {
     name,
     biography,
     your_location,
     user,
-    profile_photo
+    profile_photo,
+    id
   };
 }
 
@@ -30,7 +32,8 @@ const actions = {
   setProfileName,
   setBiography,
   setProfileLocation,
-  setProfilePhoto
+  setProfilePhoto,
+  setUser
 };
 
 class Profile extends Component {
@@ -40,17 +43,59 @@ class Profile extends Component {
         toggleSave:false
     };
   }
-  componentDidMount(){
-      if(this.props){
-
-      }
+//   componentDidUpdate(prevProps, prevState, snapshot){
+//     if(
+//         prevProps.name !== this.props.name ||
+//         prevProps.biography !== this.props.biography ||
+//         prevProps.your_location !== this.props.your_location ||
+//         prevProps.profile_photo !== this.props.profile_photo
+//     ){
+//         this.setState({
+//             toggleSave:true
+//         })
+//     }
+//   }
+  handleBiography = biography => {
+    this.props.setBiography( biography )
+    this.setState({
+        toggleSave:true
+    })
   }
+  handleLocation = location => {
+    this.props.setProfileLocation( location )
+    this.setState({
+        toggleSave:true
+    })
+  }
+  handleName = name => {
+      this.props.setProfileName( name )
+      this.setState({
+          toggleSave:true
+      })
+  }
+
   handleCancel = () => {
-
+    axios.get(`/auth/me`).then( response => {
+        this.props.setUser(response.data)
+        this.setState({
+            toggleSave:false
+        })
+        
+    })
   }
-
   handleSave = () => {
-
+    let payload = {
+        id:this.props.id,
+        profile_photo:this.props.profile_photo,
+        your_location:this.props.your_location,
+        biography:this.props.biography,
+        name:this.props.name
+    }
+    axios.put(`/api/updateUser`, payload).then( response => {
+        this.setState({
+            toggleSave:false
+        })
+    })
   }
   handleProfilePhoto = file => {
     let reader = new FileReader();
@@ -60,6 +105,9 @@ class Profile extends Component {
         axios.post(`/api/saveProfilePhoto`, payload).then( response => {
             console.log(response)
             this.props.setProfilePhoto(response.data.video)
+            this.setState({
+                toggleSave:true
+            })
         })
     }
     reader.readAsDataURL(file)
@@ -96,7 +144,7 @@ class Profile extends Component {
                 <RegularInput
                   key="name_input"
                   value={this.props.name}
-                  callbackFn={this.props.setProfileName}
+                  callbackFn={this.handleName}
                 />
               ]}
             />
@@ -105,8 +153,8 @@ class Profile extends Component {
               inputs={[
                 <textarea
                   key="biography_input"
-                  value={this.props.biography}
-                  onChange={e => this.props.setBiography(e.target.value)}
+                  value={this.props.biography || ''}
+                  onChange={e => this.handleBiography(e.target.value)}
                 />
               ]}
             />
@@ -115,8 +163,8 @@ class Profile extends Component {
               inputs={[
                 <RegularInput
                   key="location_input"
-                  value={this.props.your_location}
-                  callbackFn={this.props.setProfileLocation}
+                  value={this.props.your_location || ''}
+                  callbackFn={this.handleLocation}
                 />
               ]}
             />
@@ -132,7 +180,11 @@ class Profile extends Component {
             /> */}
           </div>
         </div>
-        <SaveProject toggleSave handleCancel handleSave />
+        <SaveProject 
+            toggleSave={this.state.toggleSave}
+            handleCancel={this.handleCancel} 
+            handleSave={this.handleSave}
+        />
       </div>
     );
   }
