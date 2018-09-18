@@ -10,6 +10,7 @@ let initialState = {
   projectImage: "",
   projectVideo:"",
   projectTitle: "",
+  projectDescription:"",
   shortBlurb: "",
   projectLocation: "",
   fundingDuration: 30,
@@ -45,6 +46,7 @@ const SET_END_DATE = "SET_END_DATE";
 const SET_LOCATION = 'SET_LOCATION';
 const SET_IMAGE = 'SET_IMAGE';
 const SET_VIDEO = 'SET_VIDEO';
+const SET_DESCRIPTION = 'SET_DESCRIPTION';
 
 export function selectCategory(category) {
   return {
@@ -161,6 +163,12 @@ export function setVideo( video ){
     payload:video
   }
 }
+export function setDescription( description ){
+  return{
+    type:SET_DESCRIPTION,
+    payload:description
+  }
+}
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SELECT_CATEGORY:
@@ -200,7 +208,8 @@ export default function reducer(state = initialState, action) {
         project_location: projectLocation,
         end_date_time: fundingEndDate,
         funding_goal: fundingGoal,
-        video
+        video,
+        description
       } = action.payload;
       // change picture/title on user object if they change during editing.
       return Object.assign({}, state, {
@@ -214,7 +223,8 @@ export default function reducer(state = initialState, action) {
         projectLocation: projectLocation || '',
         fundingEndDate: moment(fundingEndDate).format("YYYY-MM-DDTHH:mm") || '',
         fundingGoal: fundingGoal || 0,
-        projectVideo:video
+        projectVideo:video,
+        projectDescription:description
       });
     case SET_TITLE:
       return Object.assign({}, state, { projectTitle: action.payload });
@@ -230,6 +240,8 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, { projectImage: action.payload })
     case SET_VIDEO:
       return Object.assign({}, state, {projectVideo: action.payload})
+    case SET_DESCRIPTION:
+      return Object.assign({}, state, { projectDescription: action.payload})
     default:
       return state;
   }

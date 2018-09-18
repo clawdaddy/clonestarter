@@ -81,7 +81,8 @@ module.exports = {
       projectLocation,
       fundingEndDate,
       fundingGoal,
-      rewards
+      rewards,
+      projectDescription
     } = req.body;
     const { projectId } = req.params;
     req.app
@@ -96,7 +97,8 @@ module.exports = {
         subcategory,
         projectLocation,
         fundingGoal,
-        fundingEndDate
+        fundingEndDate,
+        projectDescription
       ])
       .then( response => {
           res.status(200).send(response);

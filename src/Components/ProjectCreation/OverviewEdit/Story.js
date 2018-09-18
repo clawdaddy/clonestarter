@@ -4,21 +4,31 @@ import EditSection from "./EditSection";
 import axios from "axios";
 import Dropzone from "./../ProjectAttribute/Dropzone";
 import { connect } from 'react-redux';
-import { setVideo } from './../../../dux/projectCreationReducer';
+import { setVideo, setDescription } from './../../../dux/projectCreationReducer';
 import { Video, Transformation } from 'cloudinary-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 function mapStateToProps( state ){
-    const { projectVideo, projectId} = state
+    const { projectVideo, projectId, projectDescription } = state
     return {
         projectVideo,
-        projectId
+        projectId,
+        projectDescription
     }
 }
 const actions = {
-    setVideo
+    setVideo,
+    setDescription
 }
 
 class Story extends Component {
+    constructor(){
+        super();
+        this.state = {
+            text:''
+        }
+    }
     handleFile = file => {
         let reader = new FileReader();
         reader.onload = e => {
@@ -30,6 +40,9 @@ class Story extends Component {
             })
         }
         reader.readAsDataURL(file)
+    }
+    handleChange = value => {
+        this.setState({ text:value})
     }
   render() {
     return (
@@ -49,9 +62,7 @@ class Story extends Component {
                     handleFileFn={this.handleFile}
                     preview={this.props.projectVideo}
                 >
-                    <Video publicId={`${this.props.projectVideo}`} fallbackContent='oh no' resourceType="video">
-                        <Transformation controls="true"/>
-                        
+                    <Video publicId={`${this.props.projectVideo}`} fallbackContent='oh no' controls="true">
                         <Transformation width='0.5' crop='scale' />
                     </Video>
                 </Dropzone>,
@@ -67,8 +78,20 @@ class Story extends Component {
                 <p key="description_explanation">
                   Use your project description to share more about what you're
                   raising funds to do and how you plan to pull it off. It's up
-                  to you to make the case for your projectsw
-                </p>
+                  to you to make the case for your projects.
+                </p>,
+                // I want to use ReactQuill to allow the user to insert pictures and formatting into their description, but I don't think I have time to implement this yet.
+                // <ReactQuill value={this.state.text}
+                //     onChange={this.handleChange}
+                //     key='quill'
+                // />
+                <textarea
+                    placeholder='description'
+                    value={this.props.projectDescription}
+                    onChange={e => this.handleChange(e.target.value)}
+                />
+
+                
               ]}
             />
             <EditSection
