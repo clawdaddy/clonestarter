@@ -141,18 +141,39 @@ app.get("/auth/callback", (req, res, next) => {
             });
         } else {
           //create user in db
-          app
-            .get("db")
-            .create_user([sub, email, name, picture])
-            .then(newUserResponse => {
-              req.session.user = newUserResponse[0];
-              res.redirect(
-                req.session.redirect
-                  ? FRONTEND_URL + req.session.redirect
-                  : FRONTEND_URL
-              );
-            })
-            .catch(err => console.log(err));
+          //upload photo to cloudinary
+          cloudinary.v2.uploader.upload(req.body.payload, options, (err, result) => {
+            if (err) {
+              console.log("cloudinary upload profile photo error: ", err);
+            } else {
+              console.log("cloudinary upload profile photo result: ", result);
+              //store info in db
+              app
+                .get("db")
+                .create_user([sub, email, name, result.public_id])
+                .then(newUserResponse => {
+                  req.session.user = newUserResponse[0];
+                  res.redirect(
+                    req.session.redirect
+                      ? FRONTEND_URL + req.session.redirect
+                      : FRONTEND_URL
+                  );
+                })
+                .catch(err => console.log(err));
+            }
+          });
+          // app
+          //   .get("db")
+          //   .create_user([sub, email, name, picture])
+          //   .then(newUserResponse => {
+          //     req.session.user = newUserResponse[0];
+          //     res.redirect(
+          //       req.session.redirect
+          //         ? FRONTEND_URL + req.session.redirect
+          //         : FRONTEND_URL
+          //     );
+          //   })
+          //   .catch(err => console.log(err));
         }
       })
       .catch(err => console.log(err));

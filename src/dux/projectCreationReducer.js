@@ -27,7 +27,12 @@ let initialState = {
       description: ""
     }
   ],
-  user: {},
+  user: {
+    name:'',
+    biography:'',
+    location:'',
+    profile_photo:''
+  },
   risksAndChallenges:""
 };
 
@@ -48,7 +53,12 @@ const SET_LOCATION = 'SET_LOCATION';
 const SET_IMAGE = 'SET_IMAGE';
 const SET_VIDEO = 'SET_VIDEO';
 const SET_DESCRIPTION = 'SET_DESCRIPTION';
-const SET_RISKS_AND_CHALLENGES = 'SET_RISKS_AND_CHALLENGES'
+const SET_RISKS_AND_CHALLENGES = 'SET_RISKS_AND_CHALLENGES';
+const SET_PROFILE_NAME = 'SET_PROFILE_NAME';
+const SET_BIOGRAPHY = 'SET_BIOGRAPHY';
+const SET_PROFILE_LOCATION = 'SET_PROFILE_LOCATION';
+const SET_PROFILE_PHOTO = 'SET_PROFILE_PHOTO';
+
 
 export function selectCategory(category) {
   return {
@@ -171,10 +181,34 @@ export function setDescription( description ){
     payload:description
   }
 }
-export function setRisksAndChallenges( risksAndChallenges){
+export function setRisksAndChallenges( risksAndChallenges ){
   return {
     type:SET_RISKS_AND_CHALLENGES,
     payload:risksAndChallenges
+  }
+}
+export function setProfileName( name ){
+  return {
+    type:SET_PROFILE_NAME,
+    payload:name
+  }
+}
+export function setBiography( biography ){
+  return {
+    type: SET_BIOGRAPHY,
+    payload:biography
+  }
+}
+export function setProfileLocation( location ){
+  return {
+    type: SET_PROFILE_LOCATION,
+    payload:location
+  }
+}
+export function setProfilePhoto( photo ){
+  return {
+    type:SET_PROFILE_PHOTO,
+    payload:photo
   }
 }
 export default function projectCreationReducer(state = initialState, action) {
@@ -254,6 +288,14 @@ export default function projectCreationReducer(state = initialState, action) {
       return Object.assign({}, state, { projectDescription: action.payload })
     case SET_RISKS_AND_CHALLENGES:
       return Object.assign({}, state, { risksAndChallenges:action.payload })
+    case SET_PROFILE_NAME:
+      return Object.assign({}, state, { user: Object.assign({}, state.user, { name: action.payload }) })
+    case SET_BIOGRAPHY:
+      return Object.assign({}, state, { user: Object.assign({}, state.user, { biography:action.payload }) })
+    case SET_PROFILE_LOCATION:
+      return Object.assign({}, state, { user: Object.assign({}, state.user, { your_location: action.payload }) })
+    case SET_PROFILE_PHOTO:
+      return Object.assign({}, state, { user:Object.assign({}, state.user, {profile_photo: action.payload}) })
     default:
       return state;
   }
