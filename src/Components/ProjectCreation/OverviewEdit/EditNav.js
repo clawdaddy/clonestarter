@@ -4,7 +4,7 @@ import './../OverviewEdit.css';
 import { connect } from 'react-redux';
 
 function mapStateToProps( state ){
-    const { projectId } = state;
+    const { projectId } = state.projectCreationReducer;
     return {
         projectId
     }

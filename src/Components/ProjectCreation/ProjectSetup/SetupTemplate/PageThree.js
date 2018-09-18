@@ -21,7 +21,7 @@ function mapStateToProps(state) {
     shortBlurb,
     category,
     projectId
-  } = state;
+  } = state.projectCreationReducer;
   return {
     country,
     atLeastEighteen,

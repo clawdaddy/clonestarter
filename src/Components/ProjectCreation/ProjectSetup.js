@@ -12,7 +12,7 @@ import axios from 'axios';
 
 function mapStateToProps(state) {
     return {
-        category:state.category
+        category:state.projectCreationReducer.category
     };
 }
 

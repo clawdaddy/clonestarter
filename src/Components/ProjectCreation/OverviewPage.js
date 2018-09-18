@@ -7,7 +7,7 @@ import { setProjectFromDB } from './../../dux/projectCreationReducer';
 import OverviewTracker from './ProjectSetup/OverviewPage/OverviewTracker';
 
 function mapStateToProps( state ) {
-    const { category, country, projectId, shortBlurb, subcategory, projectImage, projectTitle, projectLocation, fundingDuration, fundingEndDate, fundingGoal, rewards} = state;
+    const { category, country, projectId, shortBlurb, subcategory, projectImage, projectTitle, projectLocation, fundingDuration, fundingEndDate, fundingGoal, rewards} = state.projectCreationReducer;
     return { category, country, projectId, shortBlurb, subcategory, projectImage, projectTitle, projectLocation, fundingDuration, fundingEndDate, fundingGoal, rewards }
 }
 

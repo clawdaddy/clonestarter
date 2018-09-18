@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 function mapStateToProps(state) {
     return {
-        category:state.category
+        category:state.projectCreationReducer.category
     };
 }
 

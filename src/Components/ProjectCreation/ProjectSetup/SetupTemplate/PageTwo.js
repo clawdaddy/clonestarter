@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 function mapStateToProps( state ){
     return{
-        shortBlurb:state.shortBlurb,
+        shortBlurb:state.projectCreationReducer.shortBlurb,
     };
 }
 const actions = {
