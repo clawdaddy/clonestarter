@@ -30,7 +30,8 @@ function mapStateToProps(state) {
     fundingGoal,
     projectId,
     rewards,
-    projectDescription
+    projectDescription,
+    risksAndChallenges
   } = state;
   return {
     category,
@@ -45,7 +46,8 @@ function mapStateToProps(state) {
     fundingGoal,
     projectId,
     rewards,
-    projectDescription
+    projectDescription,
+    risksAndChallenges
   };
 }
 const actions = {
@@ -81,7 +83,8 @@ class OverviewEdit extends Component {
       prevProps.projectId !== this.props.projectId ||
       prevProps.rewards !== this.props.rewards ||
       prevProps.projectDescription !== this.props.projectDescription ||
-      prevProps.projectVideo !== this.props.projectVideo
+      prevProps.projectVideo !== this.props.projectVideo ||
+      prevProps.risksAndChallenges !== this.props.risksAndChallenges
     ) {
       this.setState({
         toggleSave: true
@@ -103,7 +106,8 @@ class OverviewEdit extends Component {
       projectId,
       rewards,
       projectDescription,
-      projectVideo
+      projectVideo,
+      risksAndChallenges
     } = this.props;
     console.log('id to server', projectId)
     axios
@@ -120,7 +124,8 @@ class OverviewEdit extends Component {
         fundingGoal,
         rewards,
         projectDescription,
-        projectVideo
+        projectVideo,
+        risksAndChallenges
       })
       .then(response => {
         console.log('response from db ', response)

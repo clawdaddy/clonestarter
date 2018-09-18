@@ -28,6 +28,7 @@ let initialState = {
     }
   ],
   user: {},
+  risksAndChallenges:""
 };
 
 const SELECT_CATEGORY = "SELECT_CATEGORY";
@@ -47,6 +48,7 @@ const SET_LOCATION = 'SET_LOCATION';
 const SET_IMAGE = 'SET_IMAGE';
 const SET_VIDEO = 'SET_VIDEO';
 const SET_DESCRIPTION = 'SET_DESCRIPTION';
+const SET_RISKS_AND_CHALLENGES = 'SET_RISKS_AND_CHALLENGES'
 
 export function selectCategory(category) {
   return {
@@ -169,6 +171,12 @@ export function setDescription( description ){
     payload:description
   }
 }
+export function setRisksAndChallenges( risksAndChallenges){
+  return {
+    type:SET_RISKS_AND_CHALLENGES,
+    payload:risksAndChallenges
+  }
+}
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SELECT_CATEGORY:
@@ -209,7 +217,8 @@ export default function reducer(state = initialState, action) {
         end_date_time: fundingEndDate,
         funding_goal: fundingGoal,
         video,
-        description
+        description,
+        risks_and_challenges
       } = action.payload;
       // change picture/title on user object if they change during editing.
       return Object.assign({}, state, {
@@ -224,7 +233,8 @@ export default function reducer(state = initialState, action) {
         fundingEndDate: moment(fundingEndDate).format("YYYY-MM-DDTHH:mm") || '',
         fundingGoal: fundingGoal || 0,
         projectVideo:video,
-        projectDescription:description
+        projectDescription:description,
+        risksAndChallenges:risks_and_challenges
       });
     case SET_TITLE:
       return Object.assign({}, state, { projectTitle: action.payload });
@@ -239,9 +249,11 @@ export default function reducer(state = initialState, action) {
     case SET_IMAGE:
       return Object.assign({}, state, { projectImage: action.payload })
     case SET_VIDEO:
-      return Object.assign({}, state, {projectVideo: action.payload})
+      return Object.assign({}, state, { projectVideo: action.payload })
     case SET_DESCRIPTION:
-      return Object.assign({}, state, { projectDescription: action.payload})
+      return Object.assign({}, state, { projectDescription: action.payload })
+    case SET_RISKS_AND_CHALLENGES:
+      return Object.assign({}, state, { risksAndChallenges:action.payload })
     default:
       return state;
   }

@@ -4,22 +4,24 @@ import EditSection from "./EditSection";
 import axios from "axios";
 import Dropzone from "./../ProjectAttribute/Dropzone";
 import { connect } from 'react-redux';
-import { setVideo, setDescription } from './../../../dux/projectCreationReducer';
+import { setVideo, setDescription, setRisksAndChallenges } from './../../../dux/projectCreationReducer';
 import { Video, Transformation } from 'cloudinary-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 function mapStateToProps( state ){
-    const { projectVideo, projectId, projectDescription } = state
+    const { projectVideo, projectId, projectDescription, risksAndChallenges } = state
     return {
         projectVideo,
         projectId,
-        projectDescription
+        projectDescription,
+        risksAndChallenges
     }
 }
 const actions = {
     setVideo,
-    setDescription
+    setDescription,
+    setRisksAndChallenges
 }
 
 class Story extends Component {
@@ -41,8 +43,8 @@ class Story extends Component {
         }
         reader.readAsDataURL(file)
     }
-    handleChange = value => {
-        this.setState({ text:value})
+    handleDescription = value => {
+        this.props.setDescription(value)
     }
   render() {
     return (
@@ -88,7 +90,7 @@ class Story extends Component {
                 <textarea
                     placeholder='description'
                     value={this.props.projectDescription}
-                    onChange={e => this.handleChange(e.target.value)}
+                    onChange={e => this.handleDescription(e.target.value)}
                 />
 
                 
@@ -111,7 +113,12 @@ class Story extends Component {
                   addressing these potential challenges from the start will help
                   backers understand that your project is a work in progress,
                   and that you’ve thought through all of the possible outcomes.
-                </p>
+                </p>,
+                <textarea
+                    value={this.props.risksAndChallenges}
+                    onChange={e => this.props.setRisksAndChallenges(e.target.value)}
+                    placeholder='Risks and Challenges'
+                />
               ]}
             />
           </div>
