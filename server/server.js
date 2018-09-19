@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const projectCreationController = require("./projectCreationController");
+const profilePhotoController = require("./profilePhotoController");
 const massive = require("massive");
 const session = require("express-session");
 const axios = require("axios");
@@ -105,12 +106,14 @@ app.get("/auth/callback", (req, res, next) => {
       .get("db")
       .find_user_by_auth_id([sub])
       .then(user => {
+        console.log('user retrieved by db: ', user)
         if (user.length) {
           //if there is a user in the database, get projects from db. If there is no results, that means there are no projects, so assign the user an empty array for projects, and send it back. Otherwise, append the array of projects to the user object and send that back.
           app
             .get("db")
             .get_creator_projects([user[0].id])
             .then(userWithProjects => {
+              console.log('user with projects: ', userWithProjects)
               if (!userWithProjects.length) {
                 user[0].projectsArray = [];
                 req.session.user = user[0];
@@ -120,7 +123,9 @@ app.get("/auth/callback", (req, res, next) => {
                     ? FRONTEND_URL + req.session.redirect
                     : FRONTEND_URL
                 );
-              } else {
+              } 
+              else {
+                console.log(`user with projects: `, userWithProjects)
                 userWithProjects[0].projectsArray = userWithProjects.map(
                   userWithProject => {
                     return {
@@ -138,24 +143,63 @@ app.get("/auth/callback", (req, res, next) => {
                     : FRONTEND_URL
                 );
               }
+            })
+            .catch(err => {
+              console.log(`getting projects error: `, err)
+              res.sendStatus(500)
             });
         } else {
           //create user in db
-          app
-            .get("db")
-            .create_user([sub, email, name, picture])
-            .then(newUserResponse => {
-              req.session.user = newUserResponse[0];
-              res.redirect(
-                req.session.redirect
-                  ? FRONTEND_URL + req.session.redirect
-                  : FRONTEND_URL
-              );
-            })
-            .catch(err => console.log(err));
-        }
+          //upload photo to cloudinary
+          let options = {
+            resource_type: "auto",
+            tags: ["profile_photo"]
+          };
+          cloudinary.v2.uploader.upload(picture, options, (err, result) => {
+            if (err) {
+              console.log("cloudinary upload profile photo error: ", err);
+            } else {
+              console.log("cloudinary upload profile photo result: ", result);
+              //store info in db
+              app
+                .get("db")
+                .create_user([sub, email, name, result.public_id])
+                .then(newUserResponse => {
+                  req.session.user = newUserResponse[0];
+                  res.redirect(
+                    req.session.redirect
+                      ? FRONTEND_URL + req.session.redirect
+                      : FRONTEND_URL
+                  );
+                })
+                .catch(err => {
+                  console.log('create user error: ',err)
+                  res.sendStatus(500)
+                });
+            }
+          })
+          .catch( err => {
+            console.log('upload photo error: ', err)
+            res.sendStatus(500)
+          }
+          // app
+          //   .get("db")
+          //   .create_user([sub, email, name, picture])
+          //   .then(newUserResponse => {
+          //     req.session.user = newUserResponse[0];
+          //     res.redirect(
+          //       req.session.redirect
+          //         ? FRONTEND_URL + req.session.redirect
+          //         : FRONTEND_URL
+          //     );
+          //   })
+          //   .catch(err => console.log(err));
+          )}
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log('find user by auth id error: ',err)
+        res.sendStatus(500)
+      });
   }
   tradeCodeForAccessToken()
     .then(accessToken => tradeAccessTokenForUserInfo(accessToken))
@@ -180,6 +224,9 @@ app.get("/auth/logout", (req, res, next) => {
     }
   });
 });
+
+app.put(`/api/updateUser`, projectCreationController.updateUser)
+app.put(`/api/updateUserPhoto`, profilePhotoController.uploadProfilePhotoToCloudinary)
 
 //project endpoints
 

@@ -1,6 +1,18 @@
 const _ = require('lodash');
 
 module.exports = {
+  updateUser: (req, res, next ) => {
+    const { id, profile_photo, your_location, biography, name } = req.body;
+    req.app
+      .get("db")
+      .update_user([id, profile_photo, your_location, biography, name])
+      .then( response => {
+        res.status(200).send(response[0])
+      })
+      .catch( err => {
+        console.log('error updating user: ', err)
+      })
+  },
   addProject: (req, res, next) => {
     const { category, shortBlurb, country } = req.body;
     console.log(category, shortBlurb, country);
@@ -53,17 +65,23 @@ module.exports = {
       .get("db")
       .get_creator_projects([id])
       .then( result => {
-        result[0].projectsArray = result.map(userWithProject => {
-          return {
-            projectId: userWithProject.project_id,
-            projectImage: userWithProject.image,
-            projectTitle: userWithProject.title
-          };
+        if(!result.length){
+          res.status(200).send(req.session.user)
         }
-        )
-        req.session.user = result[0]
-        console.log('get my projects result', result)
-        res.status(200).send(req.session.user)
+        else{
+          result[0].projectsArray = result.map(userWithProject => {
+            return {
+              projectId: userWithProject.project_id,
+              projectImage: userWithProject.image,
+              projectTitle: userWithProject.title
+            };
+          }
+          )
+          req.session.user = result[0]
+          console.log('get my projects result', result)
+          res.status(200).send(req.session.user)
+
+        }
       })
       .catch( err => {
         console.error('error getting my projects',err)
