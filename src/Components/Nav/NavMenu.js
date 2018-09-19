@@ -7,6 +7,7 @@ import axios from 'axios';
 import './Nav.css';
 import { setUser } from '../../dux/projectCreationReducer';
 import onClickOutside from 'react-onclickoutside';
+import { Image, Transformation } from 'cloudinary-react';
 
   /* the image below will be whatever picture the user has uploaded as their picture. For now, I'll try and use the one that the auth gets off of Google. When the user clicks on the picture, it will open up the NavMenu. The NavMenu contains the name of the user, 3 menu sections (my stuff, settings, and my projects), and a log out button. I'll need information from the database about the projects, so I'll make sure to grab that when the user logs in. I don't know how much of each section I'll do, but this is a good start. */
 
@@ -71,8 +72,13 @@ class NavMenu extends Component {
       <div className='nav_menu_container'>
         {/* picture of user */}
         {/* <div > */}
+        <Image publicId={this.props.user.profile_photo} onClick={this.toggleMenu} style={{cursor:'pointer'}}>
+          <Transformation radius='max'/>
+          <Transformation height='50' width='50' crop='fill'/>
+        </Image>
+            {/* old image tag replaced by cloudinary tag
             <img className='nav_user_photo' src={this.props.user.profile_photo}
-            onClick={this.toggleMenu}/>
+            onClick={this.toggleMenu}/> */}
         {/* </div> */}
         {/* Menu that opens when picture is clicked */}
         <div className={this.state.menuOpen ? 'nav_menu nav_menu_open' : 'nav_menu'}>
