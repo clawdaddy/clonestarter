@@ -13,6 +13,7 @@ import {
   setUser
 } from "./../../../dux/projectCreationReducer";
 import SaveProject from "./SaveProject";
+import { Image, Transformation } from 'cloudinary-react';
 
 function mapStateToProps(state) {
   
@@ -132,10 +133,13 @@ class Profile extends Component {
                 preview={this.props.profile_photo} 
                 
               >
-                <img 
+                {/* <img 
                     src={this.props.profile_photo} 
                     placeholder='Profile Photo'
-                />
+                /> */}
+                <Image publicId={this.props.profile_photo}>
+                    <Transformation width='150' height='150' crop='pad'/>
+                </Image>
               </Dropzone>]}
             />
             <EditSection
